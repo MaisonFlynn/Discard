@@ -1,6 +1,7 @@
-require('dotenv').config();
+require('dotenv').config(); // |_・)
 
 const { Client, GatewayIntentBits } = require('discord.js');
+// TODO: + Intent(s)
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const idk = '$'; // Prefix
@@ -65,5 +66,7 @@ function stringify(hand) {
 client.once('ready', () => {
 	console.log("Esskeetit!");
 });
+
+// TODO: Bot
 
 client.login(process.env.TOKEN);
