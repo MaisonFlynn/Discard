@@ -29,7 +29,7 @@ function calc(hand) {
 		if (rank === 'A') A += 1;
 	});
 
-	// IF Σ + A > 21 ? A == 1 : A == 11
+	// Σ + A > 21 ? A == 1 : A == 11
 	while (Σ > 21 && A) {
 		Σ -= 10;
 		A -= 1;
