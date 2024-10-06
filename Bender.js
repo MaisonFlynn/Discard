@@ -29,7 +29,7 @@ function calc(hand) {
 	let A = 0; // Ace
 
 	hand.forEach(card => {
-		const rank = card.slice(0, -1); // ˋˏ✂┈┈┈┈ Emoji (Suit)
+		const rank = card.slice(0, card.length - 2).trim(); // ˋˏ✂┈┈┈┈ Emoji (Suit)
 		Σ += X[rank];
 		if (rank === 'A') A += 1;
 	});
@@ -63,11 +63,11 @@ function deal() {
 function missionarii(rank, suit) {
     return [
         `┌─────────┐`,
-        `│ ${rank}${rank.length === 1 ? ' ' : ''}       │`,
+        `│ ${rank}${rank.length === 1 ? ' ' : ''}      │`,
         `│         │`,
         `│    ${suit}    │`,
         `│         │`,
-        `│       ${rank}${rank.length === 1 ? ' ' : ''} │`,
+        `│  ${rank.length === 1 ? '     ' : '    '}${rank} │`,
         `└─────────┘`
     ];
 }
@@ -85,14 +85,15 @@ function doggii() {
     ];
 }
 
-// Hand
+// ASCII Hand
 function handii(hand, flip = false) {
     const rows = hand.map((card, index) => {
         if (index === 1 && !flip) {
             return doggii(); // Hide Dealer's 2ⁿᵈ
         }
-        const rank = card.slice(0, -1);
-        const suit = card.slice(-1);
+		const rank = card.slice(0, card.length - 2).trim();
+        const suit = card.slice(-2).trim();
+
         return missionarii(rank, suit); // Return ASCII Card
     });
 
@@ -104,8 +105,24 @@ function handii(hand, flip = false) {
     return combination.join('\n');
 }
 
+// Test
+function test() {
+	const dHand = deal();
+    const pHand = deal();
+
+	const pΣ = calc(pHand);
+    const dΣ = calc([dHand[0]]);  // ONLY Dealer's 1ˢᵗ
+
+	console.log("𝐃𝐄𝐀𝐋𝐄𝐑'𝐒 𝐇𝐀𝐍𝐃", dHand, dΣ);
+	console.log(handii(dHand, false)); // HIDE Dealer's 2ⁿᵈ
+
+    console.log("𝐘𝐎𝐔𝐑 𝐇𝐀𝐍𝐃", pHand, pΣ);
+	console.log(handii(pHand, true));
+}
+
 client.once('ready', () => {
 	console.log("Esskeetit!");
+	test();
 });
 
 // 𝐓𝐎𝐃𝐎: Bot
