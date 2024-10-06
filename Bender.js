@@ -113,10 +113,10 @@ function test() {
 	const pΣ = calc(pHand);
     const dΣ = calc([dHand[0]]);  // ONLY Dealer's 1ˢᵗ
 
-	console.log("𝐃𝐄𝐀𝐋𝐄𝐑'𝐒 𝐇𝐀𝐍𝐃", dHand, dΣ);
+	console.log("𝐃𝐄𝐀𝐋𝐄𝐑", dHand, dΣ);
 	console.log(handii(dHand, false)); // HIDE Dealer's 2ⁿᵈ
 
-    console.log("𝐘𝐎𝐔𝐑 𝐇𝐀𝐍𝐃", pHand, pΣ);
+    console.log("𝐏𝐋𝐀𝐘𝐄𝐑", pHand, pΣ);
 	console.log(handii(pHand, true));
 }
 
