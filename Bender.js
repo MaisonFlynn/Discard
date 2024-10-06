@@ -1,8 +1,13 @@
 require('dotenv').config(); // |_・)
 
 const { Client, GatewayIntentBits } = require('discord.js');
-// 𝐓𝐎𝐃𝐎: + Intent(s)
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ]
+});
 
 const idk = '$'; // Prefix
 
@@ -54,15 +59,49 @@ function deal() {
 	return [shuffled.pop(), shuffled.pop()]; // "𝘐 𝘤𝘰𝘶𝘯𝘵 𝘵𝘸𝘰 𝘤𝘢𝘳𝘥𝘴, ..."
 }
 
-// 𝐓𝐎𝐃𝐎: ASCIIfy
+// Face-up
+function missionarii(rank, suit) {
+    return [
+        `┌─────────┐`,
+        `│ ${rank}${rank.length === 1 ? ' ' : ''}       │`,
+        `│         │`,
+        `│    ${suit}    │`,
+        `│         │`,
+        `│       ${rank}${rank.length === 1 ? ' ' : ''} │`,
+        `└─────────┘`
+    ];
+}
 
-function stringify(hand) {
-	// Deux?
-    if (hand.length > 1) {
-        return hand.slice(0, -1).join(', ') + ' & ' + hand[hand.length - 1];
+// Face-down
+function doggii() {
+    return [
+        `┌─────────┐`,
+        `│░░░░░░░░░│`,
+        `│░░░░░░░░░│`,
+        `│░░░░░░░░░│`,
+        `│░░░░░░░░░│`,
+        `│░░░░░░░░░│`,
+        `└─────────┘`
+    ];
+}
+
+// Hand
+function handii(hand, flip = false) {
+    const rows = hand.map((card, index) => {
+        if (index === 1 && !flip) {
+            return doggii(); // Hide Dealer's 2ⁿᵈ
+        }
+        const rank = card.slice(0, -1);
+        const suit = card.slice(-1);
+        return missionarii(rank, suit); // Return ASCII Card
+    });
+
+    const combination = [];
+    for (let row = 0; row < 7; row++) {  // Each card has 7 rows
+        combination.push(rows.map(card => card[row]).join(' '));
     }
 
-    return hand[0]; // Un
+    return combination.join('\n');
 }
 
 client.once('ready', () => {
