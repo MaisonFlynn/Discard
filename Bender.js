@@ -24,7 +24,7 @@ function calc(hand) {
 	let A = 0; // Ace
 
 	hand.forEach(card => {
-		const rank = card.slice(0, -1); // Slice Emoji (Suit)
+		const rank = card.slice(0, -1); // ˋˏ✂┈┈┈┈ Emoji (Suit)
 		Σ += X[rank];
 		if (rank === 'A') A += 1;
 	});
