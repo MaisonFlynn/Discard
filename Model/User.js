@@ -1,17 +1,31 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-  ID: {
+const Player = new mongoose.Schema({
+  ID: { // Discord ID
     type: String,
     required: true,
     unique: true
   },
-  currency: {
+  Dong: { // ₫
     type: Number,
     default: 1000, // !
   },
+  Gayme: { // State
+    pHand: {
+      type: Array,
+      default: []
+    },
+    dHand: {
+      type: Array,
+      default: []
+    },
+    kaput: {
+      type: Boolean,
+      default: false
+    }
+  }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', Player);
 
 module.exports = User;
