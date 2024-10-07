@@ -137,12 +137,12 @@ function btn(sigh = false) {
 				.setDisabled(sigh)
 		);
 
-	// ↺
+	// ↻
 	if (sigh) {
 		row.addComponents(
 			new ButtonBuilder()
 			.setCustomId('SIGH')
-			.setLabel('↺')
+			.setLabel('↻')
 			.setStyle(ButtonStyle.Success)
 			.setDisabled(false)
 		);
@@ -199,7 +199,7 @@ client.on('messageCreate', async message => {
 			
 			await message.channel.send({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
-				components: [btn(true)] // ↺
+				components: [btn(true)] // ↻
 			});
 			return;
 		}
@@ -230,7 +230,7 @@ client.on('interactionCreate', async interac => {
 	
 			await interac.update({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
-				components: [btn(true)] // ↺
+				components: [btn(true)] // ↻
 			});
 		} else {
 			await interac.update({
@@ -278,11 +278,11 @@ client.on('interactionCreate', async interac => {
 
 		await interac.update({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
-			components: [btn(true)] // ↺
+			components: [btn(true)] // ↻
 		});		
 	}
 
-	// ↺
+	// ↻
 	if (interac.customId === 'SIGH') {
 		Deck();
 
