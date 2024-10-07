@@ -142,34 +142,31 @@ function btn() {
 	return row;
 }
 
-let gayme = {
-	pHand: [],
-	dHand: [],
-	kaput: false
-};
-
-// Test
-function test() {
-	const dHand = deal();
-    const pHand = deal();
-
-	const pΣ = calc(pHand);
-    const dΣ = calc([dHand[0]]); // ONLY Dealer's 1ˢᵗ
-
-	console.log("𝐃𝐄𝐀𝐋𝐄𝐑", dHand, dΣ);
-	console.log(handii(dHand, false)); // HIDE Dealer's 2ⁿᵈ
-
-    console.log("𝐏𝐋𝐀𝐘𝐄𝐑", pHand, pΣ);
-	console.log(handii(pHand, true));
+// Update MongoDB User
+async function idek(id, upd) {
+	try {
+		await User.findOneAndUpdate({ ID: id}, upd, { new: true });
+	} catch (err) {
+        console.error(err);
+    }
 }
 
 client.once('ready', () => {
 	console.log("Esskeetit!");
-	// test();
 });
 
 client.on('messageCreate', async message => {
 	if (message.author.bot) return;
+
+	const id = message.author.id;
+
+	// Player?
+	let P = await User.findOne({ ID: id });
+
+	if (!P) { // IF !Player, Create
+		P = new User({ ID: id }); 
+		await P.save();
+	}
 
 	// $𝐒
 	if (message.content.toUpperCase() === `${pree}S`) {
@@ -184,9 +181,14 @@ client.on('messageCreate', async message => {
 		const pΣ = calc(gayme.pHand);
 		const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
 
+		P.Gayme = gayme;
+		await P.save();
+
 		// IF 𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍?
 		if (pΣ === 21) {
 			gayme.kaput = true;
+			P.Gayme = gayme;
+			await P.save();
 			
 			await message.channel.send({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
@@ -206,6 +208,14 @@ client.on('messageCreate', async message => {
 client.on('interactionCreate', async interac => {
 	if (!interac.isButton()) return;
 
+	const id = interac.user.id;
+
+	// Fetch Player
+	let P = await User.findOne({ ID: id });
+
+	if (!P) return;
+
+	const gayme = P.Gayme;
 	const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
 
 	// 𝐇𝐈𝐓
@@ -218,12 +228,17 @@ client.on('interactionCreate', async interac => {
 		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
 		if (pΣ > 21) {
 			gayme.kaput = true;
+			P.Gayme = gayme;
+			await P.save();
 	
 			await interac.update({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
 				components: []
 			});
 		} else {
+			P.Gayme = gayme;
+			await P.save();
+
 			await interac.update({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
 				components: [btn()]
@@ -266,6 +281,8 @@ client.on('interactionCreate', async interac => {
         }
 
 		gayme.kaput = true;
+		P.Gayme = gayme;
+		await P.save();
 
 		await interac.update({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
