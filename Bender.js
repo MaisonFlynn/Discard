@@ -117,15 +117,6 @@ function handii(hand, flip = false) {
     return combination.join('\n');
 }
 
-// ?
-function stringify(hand) {
-	// Deux?
-    if (hand.length > 1) {
-        return hand.slice(0, -1).join(', ') + ' & ' + hand[hand.length - 1];
-    }
-    return hand[0]; // Un
-}
-
 function btn() {
 	const row = new ActionRowBuilder()
 		.addComponents(
@@ -142,15 +133,6 @@ function btn() {
 	return row;
 }
 
-// Update MongoDB User
-async function idek(id, upd) {
-	try {
-		await User.findOneAndUpdate({ ID: id}, upd, { new: true });
-	} catch (err) {
-        console.error(err);
-    }
-}
-
 client.once('ready', () => {
 	console.log("Esskeetit!");
 });
@@ -158,9 +140,8 @@ client.once('ready', () => {
 client.on('messageCreate', async message => {
 	if (message.author.bot) return;
 
+	// 𝐏𝐋𝐀𝐘𝐄𝐑
 	const id = message.author.id;
-
-	// Player?
 	let P = await User.findOne({ ID: id });
 
 	if (!P) { // IF !Player, Create
@@ -168,14 +149,40 @@ client.on('messageCreate', async message => {
 		await P.save();
 	}
 
-	// $𝐒
-	if (message.content.toUpperCase() === `${pree}S`) {
+	// $$
+	if (message.content === `${pree}$`) {
+		await message.reply('```' + P.Dong + '₫```');
+		return;
+	}
+	
+	// $#
+	const regex = message.content.match(/^\$(\d+)$/);
+	if (regex) {
+		const B = parseInt(regex[1]); // Parse 𝐁𝐄𝐓
+
+		// 𝐁𝐄𝐓 # Val.
+		if (isNaN(B) || B < 5 || B > 100 || B % 5 !== 0) {
+			await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 𝐁𝐄𝐓!\u001b[0m\n```');
+			return;
+		}
+
+		// ₫ Val.
+		if (P.Dong < B) {
+			await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```');
+			return;
+		}
+
+		// -₫
+		P.Dong -= B;
+		P.Bet = B;
+		await P.save();
+
 		Deck();
 
 		gayme = {
 			pHand: deal(),
 			dHand: deal(),
-			kaput: false
+			kaput: false,
 		};
 
 		const pΣ = calc(gayme.pHand);
@@ -187,11 +194,13 @@ client.on('messageCreate', async message => {
 		// IF 𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍?
 		if (pΣ === 21) {
 			gayme.kaput = true;
+			P.Dong += B * 2;
+			P.Bet = 0;
 			P.Gayme = gayme;
 			await P.save();
 			
 			await message.channel.send({
-				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫\`\`\``,
 				components: []
 			});
 			return;
@@ -216,6 +225,7 @@ client.on('interactionCreate', async interac => {
 	if (!P) return;
 
 	const gayme = P.Gayme;
+	const B = P.Bet;
 	const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
 
 	// 𝐇𝐈𝐓
@@ -228,11 +238,12 @@ client.on('interactionCreate', async interac => {
 		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
 		if (pΣ > 21) {
 			gayme.kaput = true;
+			P.Bet = 0;
 			P.Gayme = gayme;
 			await P.save();
 	
 			await interac.update({
-				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫\`\`\``,
 				components: []
 			});
 		} else {
@@ -271,16 +282,19 @@ client.on('interactionCreate', async interac => {
 		const pΣ = calc(gayme.pHand);
 
 		// 𝐑𝐄𝐒𝐔𝐋𝐓
-		let msg = '';
+		let msg = ``;
         if (dΣ > 21 || pΣ > dΣ) {
-            msg = '𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!';
+            msg = `𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫`;
+			P.Dong += B * 2;
         } else if (dΣ > pΣ) {
-            msg = '𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!';
+            msg = `𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫`;
         } else {
-            msg = '𝐏𝐔𝐒𝐇!'; // 𝐓𝐈𝐄?
+            msg = `𝐏𝐔𝐒𝐇!`; // 𝐓𝐈𝐄?
+			P.Dong += B;
         }
 
 		gayme.kaput = true;
+		P.Bet = 0;
 		P.Gayme = gayme;
 		await P.save();
 

@@ -10,6 +10,10 @@ const Player = new mongoose.Schema({
     type: Number,
     default: 1000, // !
   },
+  Bet: {
+    type: Number,
+    default: 0,
+  },
   Gayme: { // State
     pHand: {
       type: Array,
