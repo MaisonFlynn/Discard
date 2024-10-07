@@ -117,7 +117,7 @@ function handii(hand, flip = false) {
     return combination.join('\n');
 }
 
-function btn() {
+function btn(pΣ) {
 	const row = new ActionRowBuilder()
 		.addComponents(
 			new ButtonBuilder()
@@ -129,6 +129,15 @@ function btn() {
 				.setLabel('𝐒𝐓𝐀𝐍𝐃')
 				.setStyle(ButtonStyle.Secondary)
 		);
+
+	if (pΣ === 9 || pΣ === 10 || pΣ === 11) {
+		row.addComponents(
+			new ButtonBuilder()
+				.setCustomId('DOUBLE')
+				.setLabel('𝐃𝐎𝐔𝐁𝐋𝐄')
+				.setStyle(ButtonStyle.Success)
+		);
+	}
 
 	return row;
 }
@@ -158,7 +167,7 @@ client.on('messageCreate', async message => {
 	// $#
 	const regex = message.content.match(/^\$(\d+)$/);
 	if (regex) {
-		const B = parseInt(regex[1]); // Parse 𝐁𝐄𝐓
+		let B = parseInt(regex[1]); // Parse 𝐁𝐄𝐓
 
 		// 𝐁𝐄𝐓 # Val.
 		if (isNaN(B) || B < 5 || B > 100 || B % 5 !== 0) {
@@ -209,7 +218,7 @@ client.on('messageCreate', async message => {
 		// Cont.
 		await message.channel.send({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
-			components: [btn()]
+			components: [btn(pΣ)]
 		});		
 	}
 });
@@ -225,12 +234,74 @@ client.on('interactionCreate', async interac => {
 	if (!P) return;
 
 	const gayme = P.Gayme;
-	const B = P.Bet;
-	const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+	let B = P.Bet;
+	let dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+
+	// 𝐃𝐎𝐔𝐁𝐋𝐄
+	if (interac.customId === 'DOUBLE') {
+		if (gayme.kaput || !(gayme.pHand.length === 2 && (calc(gayme.pHand) === 9 || calc(gayme.pHand) === 10 || calc(gayme.pHand) === 11))) return;
+
+		// 𝐃𝐎𝐔𝐁𝐋𝐄 Val.
+		if (P.Dong < B) {
+			await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```');
+			return;
+		}
+
+		// - BB
+		P.Dong -= B;
+		P.Bet = B * 2;
+		B = P.Bet;
+
+		// + Card
+		gayme.pHand.push(deck.pop());
+		gayme.kaput = true;
+
+		P.Gayme = gayme;
+		await P.save();
+		
+		const pΣ = calc(gayme.pHand);
+
+		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
+		if (pΣ > 21) {
+			await interac.update({
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${P.Bet}₫\`\`\``,
+				components: []
+			});
+		} else {
+			dΣ = calc(gayme.dHand);
+
+			// 𝐃𝐄𝐀𝐋𝐄𝐑 𝐇𝐈𝐓 >= 17
+			while (dΣ < 17 || (dΣ === 17 && gayme.dHand.some(card => card.startsWith('A')))) {
+                gayme.dHand.push(deck.pop());
+                dΣ = calc(gayme.dHand);
+            }
+
+			let msg = '';
+			if (dΣ > 21 || pΣ > dΣ) {
+                msg = `𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫`;
+                P.Dong += B * 2;
+            } else if (dΣ > pΣ) {
+                msg = `𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫`;
+            } else {
+                msg = `𝐏𝐔𝐒𝐇!`; // 𝐓𝐈𝐄?
+                P.Dong += B; // ± B
+            }
+
+            gayme.kaput = true;
+            P.Bet = 0;
+            P.Gayme = gayme;
+            await P.save();
+
+            await interac.update({
+                content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
+                components: []
+            });
+		}
+	}
 
 	// 𝐇𝐈𝐓
 	if (interac.customId === 'HIT') {
-		if (gayme.kaput) return interac.reply('$S');
+		if (gayme.kaput) return;
 
 		gayme.pHand.push(deck.pop());
         const pΣ = calc(gayme.pHand);
@@ -259,7 +330,7 @@ client.on('interactionCreate', async interac => {
 
 	// 𝐒𝐓𝐀𝐍𝐃
 	if (interac.customId === 'STAND') {
-		if (gayme.kaput) return interac.reply('$S');
+		if (gayme.kaput) return;
 
 		// 𝐃𝐄𝐀𝐋𝐄𝐑'𝐒 𝐓𝐔𝐑𝐍
 		while (true) {
