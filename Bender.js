@@ -1,6 +1,6 @@
 require('dotenv').config(); // |_・)
 
-const { Client, GatewayIntentBits, MessageActionRow, MessageButton, ButtonStyle } = require('discord.js');
+const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -68,7 +68,7 @@ function missionarii(rank, suit) {
         `│         │`,
         `│    ${suit}    │`,
         `│         │`,
-        `│  ${rank.length === 1 ? '     ' : '    '}${rank} │`,
+        `│      ${rank.length === 1 ? ' ' : ''}${rank} │`,
         `└─────────┘`
     ];
 }
@@ -115,13 +115,13 @@ function stringify(hand) {
 }
 
 function btn() {
-	return new MessageActionRow()
+	return new ActionRowBuilder()
 		.addComponents(
-			new MessageButton()
+			new ButtonBuilder()
 				.setCustomId('HIT')
 				.setLabel('𝐇𝐈𝐓')
 				.setStyle(ButtonStyle.Primary),
-			new MessageButton()
+			new ButtonBuilder()
 				.setCustomId('STAND')
 				.setLabel('𝐒𝐓𝐀𝐍𝐃')
 				.setStyle(ButtonStyle.Secondary)
@@ -151,13 +151,13 @@ function test() {
 
 client.once('ready', () => {
 	console.log("Esskeetit!");
-	// test();
+	test();
 });
 
 client.on('messageCreate', async message => {
 	if (message.author.bot) return;
 
-	// S
+	// $𝐒
 	if (message.content.toUpperCase() === `${pree}S`) {
 		gayme = {
 			pHand: deal(),
@@ -168,11 +168,22 @@ client.on('messageCreate', async message => {
 		const pΣ = calc(gayme.pHand);
 		const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
 
-		// Innit?
+		// IF 𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍?
+		if (pΣ === 21) {
+			gayme.kaput = true;
+			
+			await message.channel.send({
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
+				components: []
+			});
+			return;
+		}
+
+		// !𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍, Cont.
 		await message.channel.send({
-            content: `𝐃𝐄𝐀𝐋𝐄𝐑\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑\n${handii(gayme.pHand, true)}`,
-            components: [btn()]
-        });
+			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
+			components: [btn()]
+		});		
 	}
 });
 
@@ -185,16 +196,21 @@ client.on('interactionCreate', async interac => {
 
 		gayme.pHand.push(deck.pop());
 		const pΣ = calc(gayme.pHand);
-
-		await interac.update({
-			content: `𝐃𝐄𝐀𝐋𝐄𝐑\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑\n${handii(gayme.pHand, true)}`,
-            components: [btn()]
-		});
+		const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
 
 		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
 		if (pΣ > 21) {
 			gayme.kaput = true;
-			await interac.followUp('𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!');
+	
+			await interac.update({
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
+				components: []
+			});
+		} else {
+			await interac.update({
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
+				components: [btn()]
+			});
 		}
 	}
 
@@ -225,11 +241,9 @@ client.on('interactionCreate', async interac => {
 		// 𝐑𝐄𝐒𝐔𝐋𝐓
 		let msg = '';
 		if (dΣ > 21) {
-			msg = '𝐃𝐄𝐀𝐋𝐄𝐑 𝐁𝐔𝐒𝐓!';
+			msg = '𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!';
 		} else if (dΣ > pΣ) {
 			msg = '𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!';
-		} else if (dΣ < pΣ) {
-			msg = '𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!';
 		} else {
 			msg = '𝐓𝐈𝐄?';
 		}
@@ -237,11 +251,9 @@ client.on('interactionCreate', async interac => {
 		gayme.kaput = true;
 
 		await interac.update({
-			content: `𝐃𝐄𝐀𝐋𝐄𝐑\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑\n${handii(gayme.pHand, true)}`,
-            components: []
-		});
-
-		await interac.followUp(msg);
+			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
+			components: []
+		});		
 	}
 });
 
