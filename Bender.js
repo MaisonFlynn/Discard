@@ -174,7 +174,7 @@ function test() {
 
 client.once('ready', () => {
 	console.log("Esskeetit!");
-	test();
+	// test();
 });
 
 client.on('messageCreate', async message => {
