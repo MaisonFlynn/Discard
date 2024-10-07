@@ -1,5 +1,7 @@
 require('dotenv').config(); // |_・)
 
+const connectDB = require('./Config/DB');
+const User = require('./Model/User');
 const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const client = new Client({
     intents: [
@@ -9,6 +11,8 @@ const client = new Client({
         GatewayIntentBits.GuildMessageReactions
     ]
 });
+
+connectDB(); // "( – ⌓ – )=3
 
 const pree = '$'; // Prefix
 
