@@ -271,7 +271,7 @@ client.on('interactionCreate', async interac => {
         } else if (dΣ > pΣ) {
             msg = '𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!';
         } else {
-            msg = '𝐓𝐈𝐄?';
+            msg = '𝐏𝐔𝐒𝐇!'; // 𝐓𝐈𝐄?
         }
 
 		gayme.kaput = true;
