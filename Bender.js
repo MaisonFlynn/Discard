@@ -122,31 +122,18 @@ function stringify(hand) {
     return hand[0]; // Un
 }
 
-function btn(sigh = false) {
+function btn() {
 	const row = new ActionRowBuilder()
 		.addComponents(
 			new ButtonBuilder()
 				.setCustomId('HIT')
 				.setLabel('𝐇𝐈𝐓')
-				.setStyle(ButtonStyle.Primary)
-				.setDisabled(sigh),
+				.setStyle(ButtonStyle.Primary),
 			new ButtonBuilder()
 				.setCustomId('STAND')
 				.setLabel('𝐒𝐓𝐀𝐍𝐃')
 				.setStyle(ButtonStyle.Secondary)
-				.setDisabled(sigh)
 		);
-
-	// ↺
-	if (sigh) {
-		row.addComponents(
-			new ButtonBuilder()
-			.setCustomId('SIGH')
-			.setLabel('♻️')
-			.setStyle(ButtonStyle.Success)
-			.setDisabled(false)
-		);
-	}
 
 	return row;
 }
@@ -199,7 +186,7 @@ client.on('messageCreate', async message => {
 			
 			await message.channel.send({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
-				components: [btn(true)] // ↺
+				components: []
 			});
 			return;
 		}
@@ -230,7 +217,7 @@ client.on('interactionCreate', async interac => {
 	
 			await interac.update({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
-				components: [btn(true)] // ↺
+				components: []
 			});
 		} else {
 			await interac.update({
@@ -278,28 +265,9 @@ client.on('interactionCreate', async interac => {
 
 		await interac.update({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
-			components: [btn(true)] // ↺
+			components: []
 		});		
 	}
-
-	// ↺
-	if (interac.customId === 'SIGH') {
-		Deck();
-
-        gayme = {
-            pHand: deal(),
-            dHand: deal(),
-            kaput: false
-        };
-
-        const pΣ = calc(gayme.pHand);
-        const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
-
-        await interac.update({
-            content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
-            components: [btn()]
-        });
-    }
 });
 
 client.login(process.env.TOKEN);
