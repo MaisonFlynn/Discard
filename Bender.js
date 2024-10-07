@@ -12,12 +12,17 @@ const client = new Client({
 
 const pree = '$'; // Prefix
 
-const deck = [
-	'2♠️', '3♠️', '4♠️', '5♠️', '6♠️', '7♠️', '8♠️', '9♠️', '10♠️', 'J♠️', 'Q♠️', 'K♠️', 'A♠️',
-	'2♥️', '3♥️', '4♥️', '5♥️', '6♥️', '7♥️', '8♥️', '9♥️', '10♥️', 'J♥️', 'Q♥️', 'K♥️', 'A♥️',
-  	'2♣️', '3♣️', '4♣️', '5♣️', '6♣️', '7♣️', '8♣️', '9♣️', '10♣️', 'J♣️', 'Q♣️', 'K♣️', 'A♣️',
-  	'2♦️', '3♦️', '4♦️', '5♦️', '6♦️', '7♦️', '8♦️', '9♦️', '10♦️', 'J♦️', 'Q♦️', 'K♦️', 'A♦️'
-];
+let deck;
+
+function Deck() {
+    deck = [
+        '2♠️', '3♠️', '4♠️', '5♠️', '6♠️', '7♠️', '8♠️', '9♠️', '10♠️', 'J♠️', 'Q♠️', 'K♠️', 'A♠️',
+        '2♥️', '3♥️', '4♥️', '5♥️', '6♥️', '7♥️', '8♥️', '9♥️', '10♥️', 'J♥️', 'Q♥️', 'K♥️', 'A♥️',
+        '2♣️', '3♣️', '4♣️', '5♣️', '6♣️', '7♣️', '8♣️', '9♣️', '10♣️', 'J♣️', 'Q♣️', 'K♣️', 'A♣️',
+        '2♦️', '3♦️', '4♦️', '5♦️', '6♦️', '7♦️', '8♦️', '9♦️', '10♦️', 'J♦️', 'Q♦️', 'K♦️', 'A♦️'
+    ];
+    shuffle(deck);
+}
 
 // Value
 const X = {
@@ -30,8 +35,9 @@ function calc(hand) {
 	let A = 0; // Ace
 
 	hand.forEach(card => {
+		if (!card) return;
 		const rank = card.slice(0, card.length - 2).trim(); // ˋˏ✂┈┈┈┈ Emoji (Suit)
-		Σ += X[rank];
+		Σ += X[rank] || 0;
 		if (rank === 'A') A += 1;
 	});
 
@@ -46,18 +52,19 @@ function calc(hand) {
 
 // Fisher-Yates Shuffle
 function shuffle(deck) {
+    const idk = Date.now(); // Seed
     for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor((Math.random() * idk) % (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
     }
-
     return deck;
 }
 
-function deal() {
-	const shuffled = shuffle([...deck]);
 
-	return [shuffled.pop(), shuffled.pop()]; // "𝘐 𝘤𝘰𝘶𝘯𝘵 𝘵𝘸𝘰 𝘤𝘢𝘳𝘥𝘴, ..."
+function deal() {
+	if (!deck || deck.length < 2) Deck();
+
+	return [deck.pop(), deck.pop()]; // "𝘐 𝘤𝘰𝘶𝘯𝘵 𝘵𝘸𝘰 𝘤𝘢𝘳𝘥𝘴, ..."
 }
 
 // Face-up
@@ -106,6 +113,7 @@ function handii(hand, flip = false) {
     return combination.join('\n');
 }
 
+// ?
 function stringify(hand) {
 	// Deux?
     if (hand.length > 1) {
@@ -114,18 +122,33 @@ function stringify(hand) {
     return hand[0]; // Un
 }
 
-function btn() {
-	return new ActionRowBuilder()
+function btn(sigh = false) {
+	const row = new ActionRowBuilder()
 		.addComponents(
 			new ButtonBuilder()
 				.setCustomId('HIT')
 				.setLabel('𝐇𝐈𝐓')
-				.setStyle(ButtonStyle.Primary),
+				.setStyle(ButtonStyle.Primary)
+				.setDisabled(sigh),
 			new ButtonBuilder()
 				.setCustomId('STAND')
 				.setLabel('𝐒𝐓𝐀𝐍𝐃')
 				.setStyle(ButtonStyle.Secondary)
+				.setDisabled(sigh)
 		);
+
+	// ↺
+	if (sigh) {
+		row.addComponents(
+			new ButtonBuilder()
+			.setCustomId('SIGH')
+			.setLabel('↺')
+			.setStyle(ButtonStyle.Success)
+			.setDisabled(false)
+		);
+	}
+
+	return row;
 }
 
 let gayme = {
@@ -159,6 +182,8 @@ client.on('messageCreate', async message => {
 
 	// $𝐒
 	if (message.content.toUpperCase() === `${pree}S`) {
+		Deck();
+
 		gayme = {
 			pHand: deal(),
 			dHand: deal(),
@@ -174,7 +199,7 @@ client.on('messageCreate', async message => {
 			
 			await message.channel.send({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
-				components: []
+				components: [btn(true)] // ↺
 			});
 			return;
 		}
@@ -190,13 +215,14 @@ client.on('messageCreate', async message => {
 client.on('interactionCreate', async interac => {
 	if (!interac.isButton()) return;
 
+	const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+
 	// 𝐇𝐈𝐓
 	if (interac.customId === 'HIT') {
 		if (gayme.kaput) return interac.reply('$S');
 
 		gayme.pHand.push(deck.pop());
-		const pΣ = calc(gayme.pHand);
-		const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+        const pΣ = calc(gayme.pHand);
 
 		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
 		if (pΣ > 21) {
@@ -204,7 +230,7 @@ client.on('interactionCreate', async interac => {
 	
 			await interac.update({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!\`\`\``,
-				components: []
+				components: [btn(true)] // ↺
 			});
 		} else {
 			await interac.update({
@@ -240,21 +266,40 @@ client.on('interactionCreate', async interac => {
 
 		// 𝐑𝐄𝐒𝐔𝐋𝐓
 		let msg = '';
-		if (dΣ > 21) {
-			msg = '𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!';
-		} else if (dΣ > pΣ) {
-			msg = '𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!';
-		} else {
-			msg = '𝐓𝐈𝐄?';
-		}
+        if (dΣ > 21 || pΣ > dΣ) {
+            msg = '𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍!';
+        } else if (dΣ > pΣ) {
+            msg = '𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍!';
+        } else {
+            msg = '𝐓𝐈𝐄?';
+        }
 
 		gayme.kaput = true;
 
 		await interac.update({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
-			components: []
+			components: [btn(true)] // ↺
 		});		
 	}
+
+	// ↺
+	if (interac.customId === 'SIGH') {
+		Deck();
+
+        gayme = {
+            pHand: deal(),
+            dHand: deal(),
+            kaput: false
+        };
+
+        const pΣ = calc(gayme.pHand);
+        const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+
+        await interac.update({
+            content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
+            components: [btn()]
+        });
+    }
 });
 
 client.login(process.env.TOKEN);
