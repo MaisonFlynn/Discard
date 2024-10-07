@@ -206,7 +206,7 @@ client.on('messageCreate', async message => {
 			return;
 		}
 
-		// !𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍, Cont.
+		// Cont.
 		await message.channel.send({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
 			components: [btn()]
