@@ -1,1 +1,1 @@
-worker: node Bender.js
+worker: node index.js
