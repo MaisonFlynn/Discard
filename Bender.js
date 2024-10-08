@@ -167,6 +167,25 @@ client.on('messageCreate', async message => {
 		await P.save();
 	}
 
+	// $!
+	if (message.content === `${pree}!`) {
+        const rn = new Date();
+        const d8 = P.Date ? new Date(P.Date) : null;
+
+        if (d8 && (rn - d8) < 24 * 60 * 60 * 1000) {
+            // IF !24 hrs
+            const tiktok = 24 - Math.floor((rn - d8) / (60 * 60 * 1000));
+            await message.reply(`\`\`\`ansi\n\u001b[31m${tiktok}\u001b[0m\n\`\`\``);
+        } else {
+            P.Dong += 50;
+            P.Date = rn;
+            await P.save();
+
+            await message.reply('```ansi\n\u001b[32m+50₫\u001b[0m\n```');
+        }
+        return;
+    }
+
 	// $$
 	if (message.content === `${pree}$`) {
 		await message.reply('```' + P.Dong + '₫```');

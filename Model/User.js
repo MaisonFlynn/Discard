@@ -8,11 +8,15 @@ const Player = new mongoose.Schema({
   },
   Dong: { // ₫
     type: Number,
-    default: 1000, // !
+    default: 50, // !
   },
   Bet: {
     type: Number,
     default: 0,
+  },
+  Date: { // Daily ₫
+    type: Date,
+    default: null
   },
   Gayme: { // State
     pHand: {
