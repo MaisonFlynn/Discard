@@ -511,11 +511,11 @@ client.on('voiceStateUpdate', async (O, N) => {
 		// t → m
 		const tm = Math.floor(t / (1000 * 60));
 
-		// MAX / 60m
-		const M = Math.min(tm, 60);
+		// Limit Superior = 60m
+		const limsup = Math.min(tm, 60);
 
 		// +5₫ / 6m, 50₫ / VC
-        const oorah = Math.floor(M / 6) * 5;
+        const oorah = Math.floor(limsup / 6) * 5;
 
         // 50₫
         const D = Math.min(oorah, 50);
@@ -526,14 +526,14 @@ client.on('voiceStateUpdate', async (O, N) => {
         await U.save();
 
         // HH:MM
-        const h = Math.floor(M / 60);
-        const m = M % 60;
+        const h = Math.floor(limsup / 60);
+        const m = limsup % 60;
         const formulation = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 
         // Msg.
-        const G = await client.users.fetch(ID);
+        const M = await client.users.fetch(ID);
         if (D > 0) {
-            G.send(`\`\`\`+${D}₫ / ${formulation}\`\`\``);
+            M.send(`\`\`\`+${D}₫ / ${formulation}\`\`\``);
         }
     }
 });
