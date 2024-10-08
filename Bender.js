@@ -8,7 +8,8 @@ const client = new Client({
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessageReactions
+        GatewayIntentBits.GuildMessageReactions,
+		GatewayIntentBits.GuildMembers
     ]
 });
 
@@ -198,7 +199,7 @@ client.on('messageCreate', async message => {
 		let U = await User.find({}); // ALL User(s)
 
 		// Guild Members ONLY
-		const M = message.guild.members.cache;
+		const M = await message.guild.members.fetch();
 
 		const L = U // Leaderboard
 			.filter(user => M.has(user.ID))
