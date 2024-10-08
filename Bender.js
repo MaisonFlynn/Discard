@@ -193,6 +193,37 @@ client.on('messageCreate', async message => {
         return;
     }
 
+	//$'#'
+	if (message.content === `${pree}#`) {
+		let U = await User.find({}); // ALL User(s)
+
+		// Guild Members ONLY
+		const M = message.guild.members.cache;
+
+		const L = U // Leaderboard
+			.filter(user => M.has(user.ID))
+			.sort((a, b) => b.Dong - a.Dong)
+			.slice(0, 3);
+
+		// L msg.
+		let msg = '```';
+
+		msg += L.map((u, i) => {
+			const m = M.get(u.ID);
+			let emoji;
+			if (i === 0) emoji = '🥇'; // 1ˢᵗ
+			else if (i === 1) emoji = '🥈'; // 2ⁿᵈ
+			else if (i === 2) emoji = '🥉'; // 3ʳᵈ
+	
+			return `${emoji} ${m.user.displayName} ${u.Dong}₫`;
+		}).join('\n');
+	
+		msg += '```';
+
+		await message.channel.send(msg);
+		return;
+	}
+
 	// $$
 	if (message.content === `${pree}$`) {
 		await message.reply('```' + P.Dong + '₫```');
