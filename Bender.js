@@ -66,10 +66,11 @@ function shuffle(deck) {
     return deck;
 }
 
-
 function deal() {
-	if (!deck || deck.length < 2) Deck();
-
+	if (!deck || deck.length < 2) {
+		Deck();
+	}
+	
 	return [deck.pop(), deck.pop()]; // "𝘐 𝘤𝘰𝘶𝘯𝘵 𝘵𝘸𝘰 𝘤𝘢𝘳𝘥𝘴, ..."
 }
 
