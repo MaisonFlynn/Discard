@@ -20,10 +20,10 @@ let deck;
 
 function Deck() {
     deck = [
-        '2♠️', '3♠️', '4♠️', '5♠️', '6♠️', '7♠️', '8♠️', '9♠️', '10♠️', 'J♠️', 'Q♠️', 'K♠️', 'A♠️',
-        '2♥️', '3♥️', '4♥️', '5♥️', '6♥️', '7♥️', '8♥️', '9♥️', '10♥️', 'J♥️', 'Q♥️', 'K♥️', 'A♥️',
-        '2♣️', '3♣️', '4♣️', '5♣️', '6♣️', '7♣️', '8♣️', '9♣️', '10♣️', 'J♣️', 'Q♣️', 'K♣️', 'A♣️',
-        '2♦️', '3♦️', '4♦️', '5♦️', '6♦️', '7♦️', '8♦️', '9♦️', '10♦️', 'J♦️', 'Q♦️', 'K♦️', 'A♦️'
+        '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠', 'A♠',
+        '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♥',
+        '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♣',
+        '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♦'
     ];
     shuffle(deck);
 }
@@ -40,7 +40,7 @@ function calc(hand) {
 
 	hand.forEach(card => {
 		if (!card) return;
-		const rank = card.slice(0, card.length - 2).trim(); // ˋˏ✂┈┈┈┈ Emoji (Suit)
+		const rank = card.slice(0, card.length - 1).trim(); // ˋˏ✂┈┈┈┈ Emoji (Suit)
 		Σ += X[rank] || 0;
 		if (rank === 'A') A += 1;
 	});
@@ -103,8 +103,8 @@ function handii(hand, flip = false) {
         if (index === 1 && !flip) {
             return doggii(); // Hide Dealer's 2ⁿᵈ
         }
-		const rank = card.slice(0, card.length - 2).trim();
-        const suit = card.slice(-2).trim();
+		const rank = card.slice(0, card.length - 1);
+        const suit = card.slice(-1);
 
         return missionarii(rank, suit); // Return ASCII Card
     });
@@ -216,7 +216,7 @@ client.on('messageCreate', async message => {
 
 				return `${emoji} ${u.Dong.toLocaleString()}₫ <@${m.id}>`;
 			}).join('\n'))
-			.setColor('#2F3136');
+			.setColor('#2B2D31');
 
 		// Send Embed
 		await message.reply({ embeds: [msg] });
