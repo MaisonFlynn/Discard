@@ -273,7 +273,7 @@ client.on('messageCreate', async message => {
 			P.Gayme = gayme;
 			await P.save();
 			
-			await message.channel.send({
+			await message.reply({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫\`\`\``,
 				components: []
 			});
@@ -281,7 +281,7 @@ client.on('messageCreate', async message => {
 		}
 
 		// Cont.
-		await message.channel.send({
+		await message.reply({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
 			components: [btn(pΣ, gayme.dHand)]
 		});		
