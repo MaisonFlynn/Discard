@@ -173,9 +173,16 @@ client.on('messageCreate', async message => {
         const d8 = P.Date ? new Date(P.Date) : null;
 
         if (d8 && (rn - d8) < 24 * 60 * 60 * 1000) {
-            // IF !24 hrs
-            const tiktok = 24 - Math.floor((rn - d8) / (60 * 60 * 1000));
-            await message.reply(`\`\`\`ansi\n\u001b[31m${tiktok}\u001b[0m\n\`\`\``);
+            // Calc. ⩇⩇:⩇⩇:⩇⩇
+            const tiktok = 24 * 60 * 60 * 1000 - (rn - d8);
+            const h = Math.floor((tiktok / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((tiktok / (1000 * 60)) % 60);
+            const s = Math.floor((tiktok / 1000) % 60);
+
+            // Format ⩇⩇:⩇⩇:⩇⩇
+            const formulation = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+            await message.reply(`\`\`\`ansi\n\u001b[31m${formulation}\u001b[0m\n\`\`\``);
         } else {
             P.Dong += 50;
             P.Date = rn;
