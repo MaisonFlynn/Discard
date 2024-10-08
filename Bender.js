@@ -117,7 +117,7 @@ function handii(hand, flip = false) {
     return combination.join('\n');
 }
 
-function btn(pΣ) {
+function btn(pΣ, dH) {
 	const row = new ActionRowBuilder()
 		.addComponents(
 			new ButtonBuilder()
@@ -135,9 +135,18 @@ function btn(pΣ) {
 			new ButtonBuilder()
 				.setCustomId('DOUBLE')
 				.setLabel('𝐃𝐎𝐔𝐁𝐋𝐄')
-				.setStyle(ButtonStyle.Success)
+				.setStyle(ButtonStyle.Danger)
 		);
 	}
+
+	if (dH && Array.isArray(dH) && dH.length > 0 && dH[0].startsWith('A')) {
+		row.addComponents(
+			new ButtonBuilder()
+				.setCustomId('INSURANCE')
+				.setLabel('𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄')
+				.setStyle(ButtonStyle.Success)
+		);
+	}	
 
 	return row;
 }
@@ -170,7 +179,7 @@ client.on('messageCreate', async message => {
 		let B = parseInt(regex[1]); // Parse 𝐁𝐄𝐓
 
 		// 𝐁𝐄𝐓 # Val.
-		if (isNaN(B) || B < 5 || B > 100 || B % 5 !== 0) {
+		if (isNaN(B) || B < 10 || B > 100 || B % 10 !== 0) {
 			await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 𝐁𝐄𝐓!\u001b[0m\n```');
 			return;
 		}
@@ -218,7 +227,7 @@ client.on('messageCreate', async message => {
 		// Cont.
 		await message.channel.send({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
-			components: [btn(pΣ)]
+			components: [btn(pΣ, gayme.dHand)]
 		});		
 	}
 });
@@ -236,6 +245,42 @@ client.on('interactionCreate', async interac => {
 	const gayme = P.Gayme;
 	let B = P.Bet;
 	let dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+
+	// 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
+	if (interac.customId === 'INSURANCE') {
+        if (gayme.kaput || gayme.insured) return;
+
+        // 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄 Val. 1/2 B
+        const iB = Math.floor(B / 2);
+        if (P.Dong < iB) {
+            await interac.reply('```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```');
+            return;
+        }
+
+        // - iB
+        P.Dong -= iB;
+        gayme.insured = true;
+        P.Gayme = gayme;
+        await P.save();
+
+        if (calc(gayme.dHand) === 21) {
+            // IF dhand Blackjack ? B 2:1
+            P.Dong += iB * 2;
+            gayme.kaput = true;
+
+            await interac.update({
+                content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫\`\`\``,
+                components: []
+            });
+        } else {
+            // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
+            await interac.update({
+                content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n-${iB}₫!\`\`\``,
+                components: [btn(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])]
+            });
+        }
+        return;
+    }
 
 	// 𝐃𝐎𝐔𝐁𝐋𝐄
 	if (interac.customId === 'DOUBLE') {
@@ -283,8 +328,8 @@ client.on('interactionCreate', async interac => {
             } else if (dΣ > pΣ) {
                 msg = `𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫`;
             } else {
-                msg = `𝐏𝐔𝐒𝐇!`; // 𝐓𝐈𝐄?
-                P.Dong += B; // ± B
+                msg = `𝐏𝐔𝐒𝐇! =${B}₫`; // 𝐓𝐈𝐄?
+                P.Dong += B; // =₫
             }
 
             gayme.kaput = true;
@@ -360,7 +405,7 @@ client.on('interactionCreate', async interac => {
         } else if (dΣ > pΣ) {
             msg = `𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫`;
         } else {
-            msg = `𝐏𝐔𝐒𝐇!`; // 𝐓𝐈𝐄?
+            msg = `𝐏𝐔𝐒𝐇! =${B}₫`; // 𝐓𝐈𝐄?
 			P.Dong += B;
         }
 
