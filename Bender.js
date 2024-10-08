@@ -2,7 +2,7 @@ require('dotenv').config(); // |_・)
 
 const connectDB = require('./Config/DB');
 const User = require('./Model/User');
-const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -205,22 +205,21 @@ client.on('messageCreate', async message => {
 			.sort((a, b) => b.Dong - a.Dong)
 			.slice(0, 3);
 
-		// L msg.
-		let msg = '```';
+		const msg = new EmbedBuilder()
+			.setDescription(L.map((u, i) => {
+				const m = M.get(u.ID);
+				let emoji;
 
-		msg += L.map((u, i) => {
-			const m = M.get(u.ID);
-			let emoji;
-			if (i === 0) emoji = '🥇'; // 1ˢᵗ
-			else if (i === 1) emoji = '🥈'; // 2ⁿᵈ
-			else if (i === 2) emoji = '🥉'; // 3ʳᵈ
-	
-			return `${emoji} ${m.user.displayName} ${u.Dong}₫`;
-		}).join('\n');
-	
-		msg += '```';
+				if (i === 0) emoji = '🥇'; // 1ˢᵗ
+				else if (i === 1) emoji = '🥈'; // 2ⁿᵈ
+				else if (i === 2) emoji = '🥉'; // 3ʳᵈ
 
-		await message.channel.send(msg);
+				return `${emoji} ${u.Dong.toLocaleString()}₫ <@${m.id}>`;
+			}).join('\n'))
+			.setColor('#2F3136');
+
+		// Send Embed
+		await message.reply({ embeds: [msg] });
 		return;
 	}
 
