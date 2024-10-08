@@ -18,6 +18,10 @@ const Player = new mongoose.Schema({
     type: Date,
     default: null
   },
+  Time: { // Voice Channel
+    type: Number,
+    default: null
+  },
   Gayme: { // State
     pHand: {
       type: Array,

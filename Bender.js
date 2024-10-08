@@ -9,7 +9,8 @@ const client = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildMembers
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildVoiceStates
     ]
 });
 
@@ -476,6 +477,65 @@ client.on('interactionCreate', async interac => {
 			components: []
 		});		
 	}
+});
+
+// +₫ / t
+client.on('voiceStateUpdate', async (O, N) => {
+    const ID = N.id;
+
+    // Fetch User
+    let U = await User.findOne({ ID: ID });
+
+    // IF !User, NEW
+    if (!U) {
+        U = new User({ ID: ID });
+        await U.save();
+    }
+
+    // IF U → VC
+    if (!O.channelId && N.channelId) {
+        console.log(`${ID} → ${N.channelId}`); // Test
+        // Save Time Join
+        U.Time = Date.now();
+        await U.save();
+    }
+
+    // IF U ← VC
+    if (O.channelId && !N.channelId) {
+        console.log(`${ID} ← ${O.channelId}`); // Test
+        
+        // Calc. Time IN VC
+        const I = Date.now(); // 𝐼 t
+        const t = I - U.Time; // t
+
+		// t → m
+		const tm = Math.floor(t / (1000 * 60));
+
+		// MAX / 60m
+		const M = Math.min(tm, 60);
+
+		// +5₫ / 6m, 50₫ / VC
+        const oorah = Math.floor(M / 6) * 5;
+
+        // 50₫
+        const D = Math.min(oorah, 50);
+
+        // +₫ & ''
+        U.Dong += D;
+        U.Time = null;
+        await U.save();
+
+        // HH:MM
+        const h = Math.floor(M / 60);
+        const m = M % 60;
+        const formulation = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+        // Msg.
+        const G = await client.users.fetch(ID);
+        if (D > 0) {
+            G.send(`\`\`\`+${D}₫ / ${formulation}\`\`\``);
+        }
+    }
 });
 
 client.login(process.env.TOKEN);
