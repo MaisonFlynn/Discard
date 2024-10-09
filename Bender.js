@@ -279,7 +279,7 @@ client.on('messageCreate', async message => {
 			await P.save();
 			
 			await message.reply({
-				content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫\`\`\``,
+				content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫\`\`\``,
 				components: []
 			});
 			return;
@@ -287,7 +287,7 @@ client.on('messageCreate', async message => {
 
 		// Cont.
 		await message.reply({
-			content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
+			content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
 			components: [btn(pΣ, gayme.dHand)]
 		});		
 	}
@@ -330,13 +330,13 @@ client.on('interactionCreate', async interac => {
             gayme.kaput = true;
 
             await interac.update({
-                content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫\`\`\``,
+                content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫\`\`\``,
                 components: []
             });
         } else {
             // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
             await interac.update({
-                content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n-${iB}₫!\`\`\``,
+                content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n-${iB}₫!\`\`\``,
                 components: [btn(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])]
             });
         }
@@ -370,7 +370,7 @@ client.on('interactionCreate', async interac => {
 		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
 		if (pΣ > 21) {
 			await interac.update({
-				content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${P.Bet}₫\`\`\``,
+				content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${P.Bet}₫\`\`\``,
 				components: []
 			});
 		} else {
@@ -399,7 +399,7 @@ client.on('interactionCreate', async interac => {
             await P.save();
 
             await interac.update({
-                content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
+                content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
                 components: []
             });
 		}
@@ -420,7 +420,7 @@ client.on('interactionCreate', async interac => {
 			await P.save();
 	
 			await interac.update({
-				content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫\`\`\``,
+				content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫\`\`\``,
 				components: []
 			});
 		} else {
@@ -428,7 +428,7 @@ client.on('interactionCreate', async interac => {
 			await P.save();
 
 			await interac.update({
-				content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
+				content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
 				components: [btn()]
 			});
 		}
@@ -476,7 +476,7 @@ client.on('interactionCreate', async interac => {
 		await P.save();
 
 		await interac.update({
-			content: `\`\`\`bash𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
+			content: `\`\`\`bash\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
 			components: []
 		});		
 	}
