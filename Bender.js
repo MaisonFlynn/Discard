@@ -517,7 +517,7 @@ client.on('voiceStateUpdate', async (O, N) => {
 		// Limit Superior = 60m
 		const limsup = Math.min(tm, 60);
 
-		// +5₫ / 6m, 50₫ / VC
+		// +5₫/6m ≤ 50₫ → VC
         const oorah = Math.floor(limsup / 6) * 5;
 
         // 50₫

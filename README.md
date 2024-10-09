@@ -10,7 +10,7 @@
 
 ## ETC
 
-+ +₫/6m ≤ 50₫ → <i>Voice Channel</i>
++ +5₫/6m ≤ 50₫ → <i>Voice Channel</i>
 
 ## 🔎🐛
 
