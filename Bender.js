@@ -156,6 +156,7 @@ function btn(pΣ, dH) {
 
 client.once('ready', () => {
 	console.log("Esskeetit!");
+	client.user.setActivity("Blackjackin'", { type: 'PLAYING' }); // XD
 });
 
 client.on('messageCreate', async message => {
