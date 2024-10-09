@@ -4,10 +4,10 @@
 ## CMD
 
 + `$?` Help
-+ `$!` Daily
++ `$!` Daily +₫
 + `$$` Balance
 + `$#` Leaderboard
-+ `$<10-100/10>` Bet
++ `$<10-100/10>` Bet 𝑥 ₫
 
 ## ETC
 
