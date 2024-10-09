@@ -8,6 +8,10 @@
 + `$#` <i>Leaderboard</i>
 + `$<10-100/10>` <i>Bet</i>
 
+## ETC
+
++ +₫/6m ≤ 50₫ → <i>Voice Channel</i>
+
 ## 🔎🐛
 
 [LMK](https://github.com/MaisonFlynn/Discard/issues)
