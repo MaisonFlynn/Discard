@@ -209,16 +209,21 @@ client.on('messageCreate', async message => {
 			.slice(0, 3);
 
 		const msg = new EmbedBuilder()
-			.setDescription(L.map((u, i) => {
-				const m = M.get(u.ID);
+			.setDescription(await Promise.all(L.map(async (u, i) => {
+				const m = await message.guild.members.fetch(u.ID).catch(() => null);
 				let emoji;
 
 				if (i === 0) emoji = '🥇'; // 1ˢᵗ
 				else if (i === 1) emoji = '🥈'; // 2ⁿᵈ
 				else if (i === 2) emoji = '🥉'; // 3ʳᵈ
 
+				// IF !User
+				if (!m) {
+					return `${emoji} ${u.Dong.toLocaleString()}₫ ?`;
+				}
+	
 				return `${emoji} ${u.Dong.toLocaleString()}₫ <@${m.id}>`;
-			}).join('\n'))
+			})))
 			.setColor('#2B2D31');
 
 		// Send Embed
