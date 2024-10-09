@@ -175,17 +175,16 @@ client.on('messageCreate', async message => {
 
 	// #?
 	if (message.content === `${pree}?`) {
-		const CMD = new EmbedBuilder()
-			.setColor('#2B2D31')
-			.setDescription(
-				'`$?` 𝐇𝐄𝐋𝐏\n' +
-				'`$!` 𝐃𝐀𝐈𝐋𝐘\n' +
-				'`$$` 𝐁𝐀𝐋𝐀𝐍𝐂𝐄\n' +
-				'`$#` 𝐋𝐄𝐀𝐃𝐄𝐑𝐁𝐎𝐀𝐑𝐃\n' +
-				'`$<10-100/10>` 𝐁𝐄𝐓\n'
-			);
-
-		await message.reply({ embeds: [CMD] });
+		const CMD = 
+			'```\n' +
+			'$?				\n' +
+			'$!				\n' +
+			'$$				\n' +
+			'$#				\n' +
+			'$<10-100/10>	\n' +
+			'```';
+	
+		await message.reply(CMD);
 		return;
 	}
 
