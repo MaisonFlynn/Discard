@@ -18,6 +18,7 @@
 
 ## WIP
 
++ [ ] Help Command
 + [ ] Splitting Pairs
 
 ```
