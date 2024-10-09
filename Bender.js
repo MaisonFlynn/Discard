@@ -137,7 +137,7 @@ function btn(pΣ, dH) {
 		row.addComponents(
 			new ButtonBuilder()
 				.setCustomId('DOUBLE')
-				.setLabel('𝐃𝐎𝐔𝐁𝐋𝐄')
+				.setLabel('𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍')
 				.setStyle(ButtonStyle.Danger)
 		);
 	}
@@ -363,11 +363,11 @@ client.on('interactionCreate', async interac => {
         return;
     }
 
-	// 𝐃𝐎𝐔𝐁𝐋𝐄
+	// 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍
 	if (interac.customId === 'DOUBLE') {
 		if (gayme.kaput || !(gayme.pHand.length === 2 && (calc(gayme.pHand) === 9 || calc(gayme.pHand) === 10 || calc(gayme.pHand) === 11))) return;
 
-		// 𝐃𝐎𝐔𝐁𝐋𝐄 Val.
+		// 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍 Val.
 		if (P.Dong < B) {
 			await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```');
 			return;
