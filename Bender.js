@@ -2,7 +2,7 @@ require('dotenv').config(); // |_・)
 
 const connectDB = require('./Config/DB');
 const User = require('./Model/User');
-const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ActivityType } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -156,7 +156,9 @@ function btn(pΣ, dH) {
 
 client.once('ready', () => {
 	console.log("Esskeetit!");
-	client.user.setActivity("Blackjackin'", { type: 'PLAYING' }); // XD
+	client.user.setActivity("Blackjackin'", {
+		type: ActivityType.Playing,
+	}); // XD
 });
 
 client.on('messageCreate', async message => {
