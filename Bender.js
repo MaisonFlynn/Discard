@@ -288,7 +288,8 @@ client.on('messageCreate', async message => {
 		// Cont.
 		await message.reply({
 			content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
-			components: [btn(pΣ, gayme.dHand)]
+			components: [btn(pΣ, gayme.dHand)],
+			ephemeral: true
 		});		
 	}
 });
@@ -337,7 +338,8 @@ client.on('interactionCreate', async interac => {
             // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
             await interac.update({
                 content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n-${iB}₫!\`\`\``,
-                components: [btn(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])]
+                components: [btn(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])],
+				ephemeral: true
             });
         }
         return;
@@ -429,7 +431,8 @@ client.on('interactionCreate', async interac => {
 
 			await interac.update({
 				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
-				components: [btn()]
+				components: [btn()],
+				ephemeral: true
 			});
 		}
 	}
