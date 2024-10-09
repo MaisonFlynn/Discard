@@ -200,7 +200,7 @@ client.on('messageCreate', async message => {
 	if (message.content === `${pree}#`) {
 		let U = await User.find({}); // ALL User(s)
 	
-		// TOP 3 Dongs
+		// WatchMojo "Top 5 Dong"
 		const Top5 = U.sort((a, b) => b.Dong - a.Dong).slice(0, 3);
 	
 		const L = await Promise.all(Top5.map(async (u, i) => {
