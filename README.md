@@ -19,7 +19,7 @@
 
 ## WIP
 
-+ [ ] Help Command
++ [x] Help Command
 + [ ] Splitting Pairs
 
 ```
