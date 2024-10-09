@@ -199,38 +199,35 @@ client.on('messageCreate', async message => {
 	//$'#'
 	if (message.content === `${pree}#`) {
 		let U = await User.find({}); // ALL User(s)
-
-		// Guild Members ONLY
-		const M = await message.guild.members.fetch();
-
-		const L = U // Leaderboard
-			.filter(user => M.has(user.ID))
-			.sort((a, b) => b.Dong - a.Dong)
-			.slice(0, 3);
-
-		const msg = new EmbedBuilder()
-			.setDescription(await Promise.all(L.map(async (u, i) => {
-				const m = await message.guild.members.fetch(u.ID).catch(() => null);
-				let emoji;
-
-				if (i === 0) emoji = '🥇'; // 1ˢᵗ
-				else if (i === 1) emoji = '🥈'; // 2ⁿᵈ
-				else if (i === 2) emoji = '🥉'; // 3ʳᵈ
-
-				// IF !User
-				if (!m) {
-					return `${emoji} ${u.Dong.toLocaleString()}₫ ?`;
-				}
 	
-				return `${emoji} ${u.Dong.toLocaleString()}₫ <@${m.id}>`;
-			})))
+		// TOP 3 Dongs
+		const Top5 = U.sort((a, b) => b.Dong - a.Dong).slice(0, 3);
+	
+		const L = await Promise.all(Top5.map(async (u, i) => {
+			const m = await message.guild.members.fetch(u.ID).catch(() => null);
+			let emoji;
+	
+			if (i === 0) emoji = '🥇'; // 1ˢᵗ
+			else if (i === 1) emoji = '🥈'; // 2ⁿᵈ
+			else if (i === 2) emoji = '🥉'; // 3ʳᵈ
+	
+			// IF !User
+			if (!m) {
+				return `${emoji} ${u.Dong.toLocaleString()}₫ ?`;
+			}
+	
+			return `${emoji} ${u.Dong.toLocaleString()}₫ <@${m.id}>`;
+		}));
+	
+		const msg = new EmbedBuilder()
+			.setDescription(L.join('\n'))
 			.setColor('#2B2D31');
-
+	
 		// Send Embed
 		await message.reply({ embeds: [msg] });
 		return;
 	}
-
+	
 	// $$
 	if (message.content === `${pree}$`) {
 		await message.reply('```' + P.Dong + '₫```');
