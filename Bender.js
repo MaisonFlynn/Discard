@@ -173,6 +173,22 @@ client.on('messageCreate', async message => {
 		await P.save();
 	}
 
+	// #?
+	if (message.content === `${pree}?`) {
+		const CMD = new EmbedBuilder()
+			.setColor('#2B2D31')
+			.setDescription(
+				'`$?` 𝐇𝐄𝐋𝐏' +
+				'`$!` 𝐃𝐀𝐈𝐋𝐘' +
+				'`$$` 𝐁𝐀𝐋𝐀𝐍𝐂𝐄' +
+				'`$#` 𝐋𝐄𝐀𝐃𝐄𝐑𝐁𝐎𝐀𝐑𝐃' +
+				'`$<10-100/10>` 𝐁𝐄𝐓'
+			);
+
+		await message.reply({ embeds: [CMD] });
+		return;
+	}
+
 	// $!
 	if (message.content === `${pree}!`) {
         const rn = new Date();
