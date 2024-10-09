@@ -156,9 +156,9 @@ function btn(pΣ, dH) {
 
 client.once('ready', () => {
 	console.log("Esskeetit!");
-	client.user.setActivity("Blackjackin'", {
+	client.user.setActivity('Blackjack', { // Censored
 		type: ActivityType.Playing,
-	}); // XD
+	});
 });
 
 client.on('messageCreate', async message => {
