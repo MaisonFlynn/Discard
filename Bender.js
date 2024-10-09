@@ -248,7 +248,7 @@ client.on('messageCreate', async message => {
 	
 	// $$
 	if (message.content === `${pree}$`) {
-		await message.reply('```' + P.Dong + '₫```');
+		await message.reply('```' + P.Dong.toLocaleString() + '₫```');
 		return;
 	}
 	
