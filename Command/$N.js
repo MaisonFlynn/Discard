@@ -4,7 +4,7 @@ const { Deck, deal } = require('../Utility/Deck');
 const { calc, handii } = require('../Utility/Game');
 const { btn } = require('../Utility/Button');
 
-module.exports = async function Bet(message, P, B) {
+async function Bet(message, P, B) {
     // 𝐁𝐄𝐓 # Val.
     if (isNaN(B) || B < 10 || B > 100 || B % 10 !== 0) {
         await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 𝐁𝐄𝐓!\u001b[0m\n```');
@@ -74,7 +74,7 @@ module.exports = async function Bet(message, P, B) {
     });		
 };
 
-module.exports.Interac = async function (interac, P) {
+async function Interac(interac, P) {
 	const gayme = P.Gayme;
 	let B = P.Bet;
 	let dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
@@ -255,3 +255,5 @@ module.exports.Interac = async function (interac, P) {
 		});		
 	}
 };
+
+module.exports = { Bet, Interac };
