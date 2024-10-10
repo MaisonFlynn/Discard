@@ -75,6 +75,9 @@ async function Bet(message, P, B) {
 };
 
 async function Interac(interac, P) {
+    const { Deck } = require('../Utility/Deck');
+    let deck = Deck();
+
 	const gayme = P.Gayme;
 	let B = P.Bet;
 	let dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
