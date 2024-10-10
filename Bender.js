@@ -283,7 +283,7 @@ client.on('messageCreate', async message => {
 		};
 
 		const pΣ = calc(gayme.pHand);
-		const dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+		let dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
 
 		P.Gayme = gayme;
 		await P.save();
