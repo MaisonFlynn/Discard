@@ -2,7 +2,7 @@
 
 require('dotenv').config(); // |_・)
 
-const User = require('../Model/User');
+const User = require('./Model/User');
 const connectDB = require('./Config/DB');
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const client = new Client({
