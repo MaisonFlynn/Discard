@@ -290,17 +290,32 @@ client.on('messageCreate', async message => {
 
 		// IF 𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍?
 		if (pΣ === 21) {
-			gayme.kaput = true;
-			P.Dong += B * 2;
-			P.Bet = 0;
-			P.Gayme = gayme;
-			await P.save();
-			
-			await message.reply({
-				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫\`\`\``,
-				components: []
-			});
-			return;
+			dΣ = calc(gayme.dHand);
+
+			if (dΣ === 21) { // IF pΣ & dΣ === 21, 𝐏𝐔𝐒𝐇!
+				gayme.kaput = true;
+				P.Bet = 0;
+				await P.save();
+
+				await message.reply({
+				  content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐔𝐒𝐇! =${B}₫\`\`\``,
+				  components: []
+				});
+
+				return;
+			} else { // 𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! & 1.5x B
+				gayme.kaput = true;
+				P.Dong += B * 2.5; // 1.5x B
+				P.Bet = 0;
+				await P.save();
+
+				await message.reply({
+				  content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B * 1.5}₫\`\`\``,
+				  components: []
+				});
+
+				return;
+			}
 		}
 
 		// Cont.
