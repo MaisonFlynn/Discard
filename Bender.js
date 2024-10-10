@@ -364,7 +364,7 @@ client.on('interactionCreate', async interac => {
             gayme.kaput = true;
 
             await interac.update({
-                content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫\`\`\``,
+                content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =${iB * 2}₫\`\`\``,
                 components: []
             });
         } else {
