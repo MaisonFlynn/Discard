@@ -577,4 +577,13 @@ client.on('voiceStateUpdate', async (O, N) => {
     }
 });
 
+// ∅🐛
+process.on('uncaughtException', (err) => {
+    console.error(err);
+});
+
+process.on('unhandledRejection', (err, idk) => {
+    console.error(idk, err);
+});
+
 client.login(process.env.TOKEN);
