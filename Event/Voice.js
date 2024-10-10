@@ -1,5 +1,3 @@
-// Event/Voice
-
 const User = require('../Model/User');
 
 module.exports = async function Voice(O, N, client) {
