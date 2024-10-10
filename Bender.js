@@ -2,7 +2,7 @@ require('dotenv').config(); // |_・)
 
 const User = require('./Model/User');
 const connectDB = require('./Config/DB');
-const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType, EmbedBuilder } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -36,7 +36,7 @@ client.on('messageCreate', async message => {
 	let P = await User.findOne({ ID: id });
 
 	if (!P) { // IF !Player, Create
-		P = new User({ ID: id }); 
+		P = new User({ ID: id, Msg: true }); 
 		await P.save();
 	}
 	
@@ -58,7 +58,25 @@ client.on('messageCreate', async message => {
     } else if (/^\d+$/.test(CMD)) { // Bet
         let B = parseInt(CMD);
         await Bet(message, P, B);
-    }
+    } else if (CMD === '-') { // Mute 🔔
+		P.Msg = false;
+		await P.save();
+		
+		const msg = new EmbedBuilder()
+            .setDescription('🔇')
+            .setColor('#2B2D31');
+
+        await message.reply({ embeds: [msg] });
+	} else if (CMD === '+') { // Unmute 🔔
+		P.Msg = true;
+		await P.save();
+		
+		const msg = new EmbedBuilder()
+            .setDescription('🔊')
+            .setColor('#2B2D31');
+
+        await message.reply({ embeds: [msg] });
+	}
 });
 
 // 𝐇𝐈𝐓, 𝐒𝐓𝐀𝐍𝐃, 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍 & 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄

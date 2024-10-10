@@ -14,16 +14,12 @@ module.exports = async function Voice(O, N, client) {
 
     // IF U → VC
     if (!O.channelId && N.channelId) {
-        console.log(`${ID} → ${N.channelId}`); // Test
-        // Save Time Join
-        U.Time = Date.now();
+        U.Time = Date.now(); // Set → Time
         await U.save();
     }
 
     // IF U ← VC
     if (O.channelId && !N.channelId) {
-        console.log(`${ID} ← ${O.channelId}`); // Test
-        
         // Calc. Time IN VC
         const I = Date.now(); // 𝐼 t
         const t = I - U.Time; // t
@@ -50,10 +46,12 @@ module.exports = async function Voice(O, N, client) {
         const m = limsup % 60;
         const formulation = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 
-        // Msg.
+        // Msg. IF Unmuted
         const M = await client.users.fetch(ID);
-        if (D > 0) {
-            M.send(`\`\`\`+${D}₫ / ${formulation}\`\`\``);
+        if (U.Msg && D > 0) {
+            M.send(`\`\`\`+${D}₫ / ${formulation}\`\`\``).catch(() =>{
+                // IF Muted, +₫ & ∅ Msg.
+            });
         }
     }
 };
