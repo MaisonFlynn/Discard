@@ -1,5 +1,3 @@
-// Utility/Deck
-
 let deck;
 
 function Deck() {

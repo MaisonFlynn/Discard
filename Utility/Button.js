@@ -1,5 +1,3 @@
-// Utility/Button
-
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 function btn(pΣ, dH) {

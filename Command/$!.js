@@ -1,5 +1,3 @@
-// Command/$!
-
 module.exports = async function Claim(message, P) {
     const rn = new Date();
     const d8 = P.Date ? new Date(P.Date) : null;

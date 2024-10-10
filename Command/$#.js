@@ -1,5 +1,3 @@
-// Command/$#
-
 const { EmbedBuilder } = require('discord.js');
 const User = require('../Model/User');
 

@@ -1,5 +1,3 @@
-// Bender
-
 require('dotenv').config(); // |_・)
 
 const User = require('./Model/User');
@@ -29,6 +27,7 @@ client.once('ready', () => {
 	});
 });
 
+// $?, $!, $#, $$ & $<10-100/10>
 client.on('messageCreate', async message => {
 	if (message.author.bot || !message.content.startsWith(pree)) return;
 
@@ -62,6 +61,7 @@ client.on('messageCreate', async message => {
     }
 });
 
+// 𝐇𝐈𝐓, 𝐒𝐓𝐀𝐍𝐃, 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍 & 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
 client.on('interactionCreate', async interac => {
     if (!interac.isButton()) return;
 
@@ -73,6 +73,7 @@ client.on('interactionCreate', async interac => {
     await Interac(interac, P);
 });
 
+// ▶• ılıılıılıılıılıılı. 0:69
 client.on('voiceStateUpdate', async (O, N) => {
 	await Voice(O, N, client);
 });
@@ -82,6 +83,7 @@ process.on('uncaughtException', (err) => {
     console.error(err);
 });
 
+// ∅🐛
 process.on('unhandledRejection', (err, idk) => {
     console.error(idk, err);
 });

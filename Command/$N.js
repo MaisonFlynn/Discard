@@ -1,5 +1,3 @@
-// Command/$N
-
 const { Deck, deal } = require('../Utility/Deck');
 const { calc, handii } = require('../Utility/Game');
 const { btn } = require('../Utility/Button');

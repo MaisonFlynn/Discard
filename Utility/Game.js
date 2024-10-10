@@ -1,5 +1,3 @@
-// Utility/Game
-
 const { X } = require('./Deck');
 
 function calc(hand) {

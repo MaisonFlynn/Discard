@@ -1,5 +1,3 @@
-// Command/$¿
-
 module.exports = async function Help(message) {
     const CMD = 
       '```\n' +
