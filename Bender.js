@@ -2,7 +2,7 @@ require('dotenv').config(); // |_・)
 
 const User = require('./Model/User');
 const connectDB = require('./Config/DB');
-const { Client, GatewayIntentBits, ActivityType, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -13,7 +13,13 @@ const client = new Client({
 		GatewayIntentBits.GuildVoiceStates
     ]
 });
+const Help = require('./Command/$¿');
+const Claim = require('./Command/$!');
+const Leaderboard = require('./Command/$#');
+const Balance = require('./Command/$$');
 const { Bet, Interac } = require('./Command/$N');
+const Mute = require('./Command/$-');
+const Unmute = require('./Command/$+');
 const Voice = require('./Event/Voice');
 
 connectDB(); // "( – ⌓ – )=3
@@ -44,38 +50,20 @@ client.on('messageCreate', async message => {
 	const CMD = message.content.slice(pree.length).trim();
 
 	if (CMD === '?') { // Help
-		const Help = require('./Command/$¿');
 		await Help(message);
 	} else if (CMD === '!') { // Claim
-        const Claim = require('./Command/$!');
         await Claim(message, P);
     } else if (CMD === '#') { // Leaderboard
-		const Leaderboard = require('./Command/$#');
 		await Leaderboard(message);
 	} else if (CMD === '$') { // Balance
-        const Balance = require('./Command/$$');
         await Balance(message, P);
     } else if (/^\d+$/.test(CMD)) { // Bet
         let B = parseInt(CMD);
         await Bet(message, P, B);
     } else if (CMD === '-') { // Mute 🔔
-		P.Msg = false;
-		await P.save();
-		
-		const msg = new EmbedBuilder()
-            .setDescription('🔇')
-            .setColor('#2B2D31');
-
-        await message.reply({ embeds: [msg] });
+		await Mute(message, P);
 	} else if (CMD === '+') { // Unmute 🔔
-		P.Msg = true;
-		await P.save();
-		
-		const msg = new EmbedBuilder()
-            .setDescription('🔊')
-            .setColor('#2B2D31');
-
-        await message.reply({ embeds: [msg] });
+		await Unmute(message, P);
 	}
 });
 
