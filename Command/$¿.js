@@ -1,6 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = async function Help(message) {
+    const idk = [
+        '¯\\_(ツ)_/¯',
+        '∘ ∘ ∘ ( °ヮ° ) ?',
+        '( ꩜ ᯅ ꩜;)⁭⁭'
+    ];
+
+    const rnd = idk[Math.floor(Math.random() * idk.length)];
+
     const msg = new EmbedBuilder()
         .setDescription(
             '`$?`\n' +
@@ -10,7 +18,7 @@ module.exports = async function Help(message) {
             '`$-`\n' +
             '`$+`\n' +
             '`$<10-1000/10>`\n\n' +
-            '[( ꩜ ᯅ ꩜;)](https://bicyclecards.com/how-to-play/blackjack)'
+            `[${rnd}](https://bicyclecards.com/how-to-play/blackjack)`
         )
         .setColor('#2B2D31');
         
