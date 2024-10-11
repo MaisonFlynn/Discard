@@ -41,7 +41,7 @@ client.on('messageCreate', async message => {
 	const id = message.author.id;
 	let P = await User.findOne({ ID: id });
 
-	if (!P) { // IF !Player, Create
+	if (!P) { // IF !𝐏𝐋𝐀𝐘𝐄𝐑, +𝐏𝐋𝐀𝐘𝐄𝐑
 		P = new User({ ID: id, Msg: true }); 
 		await P.save();
 	}
