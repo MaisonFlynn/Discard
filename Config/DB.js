@@ -3,7 +3,9 @@ require('dotenv').config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO);
+    await mongoose.connect(process.env.MONGO, {
+      dbName: 'Discard',
+    });
     console.log('MongoDB Connect');
   } catch (err) {
     console.error('MongoDB Disconnect', err);
