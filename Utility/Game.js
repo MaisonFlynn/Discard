@@ -33,8 +33,12 @@ function handii(hand, flip = false) {
     });
 
     const combination = [];
-    for (let row = 0; row < 7; row++) {  // Each card has 7 rows
-        combination.push(rows.map(card => card[row]).join(' '));
+    for (let row = 0; row < 7; row++) {
+        const kiai = rows.map((card, i) => {
+            // Responsiveness
+            return (i % 3 === 0 && i !== 0) ? `\n${card[row]}` : card[row];
+        }).join(' ');
+        combination.push(kiai);
     }
 
     return combination.join('\n');
