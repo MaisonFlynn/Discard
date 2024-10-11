@@ -2,7 +2,6 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = async function Help(message) {
     const msg = new EmbedBuilder()
-    .setTitle('CMD')
         .setDescription(
             '`$?`\n' +
             '`$!`\n' +
@@ -13,7 +12,8 @@ module.exports = async function Help(message) {
             '`$<10-1000/10>`'
         )
         .setColor('#2B2D31')
-        .setFooter({ text: 'https://bicyclecards.com/how-to-play/blackjack' });
+        .setFooter({ text: '( ꩜ ᯅ ꩜;)⁭⁭', iconURL: 'https://bicyclecards.com/wp-content/themes/bicyclecards/favicon.ico' })
+        .setURL('https://bicyclecards.com/how-to-play/blackjack');
         
     await message.reply({ embeds: [msg] });
 };
