@@ -5,7 +5,8 @@ module.exports = async function Help(message) {
         '¯\\_(ツ)_/¯',
         '∘ ∘ ∘ ( °ヮ° ) ?',
         '( ꩜ ᯅ ꩜;)⁭⁭',
-        '(,,•᷄‎ࡇ•᷅ ,,)?'
+        '(,,•᷄‎ࡇ•᷅ ,,)?',
+        '( ╹ -╹)?'
     ];
 
     const rnd = idk[Math.floor(Math.random() * idk.length)];
