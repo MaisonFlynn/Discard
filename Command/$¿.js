@@ -2,10 +2,8 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = async function Help(message) {
     const idk = [
-        '¯\\_(ツ)_/¯',
         '∘ ∘ ∘ ( °ヮ° ) ?',
         '( ꩜ ᯅ ꩜;)⁭⁭',
-        '(,,•᷄‎ࡇ•᷅ ,,)?',
         '( ╹ -╹)?'
     ];
 
