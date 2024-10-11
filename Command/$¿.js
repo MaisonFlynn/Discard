@@ -9,11 +9,11 @@ module.exports = async function Help(message) {
             '`$$`\n' +
             '`$-`\n' +
             '`$+`\n' +
-            '`$<10-1000/10>`'
+            '`$<10-1000/10>`\n\n' +
+            '[Learn how to play Blackjack](https://bicyclecards.com/how-to-play/blackjack)'
         )
         .setColor('#2B2D31')
-        .setFooter({ text: '( ꩜ ᯅ ꩜;)⁭⁭', iconURL: 'https://bicyclecards.com/wp-content/themes/bicyclecards/favicon.ico' })
-        .setURL('https://bicyclecards.com/how-to-play/blackjack');
+        .setFooter({ text: '( ꩜ ᯅ ꩜;)⁭⁭', iconURL: 'https://bicyclecards.com/wp-content/themes/bicyclecards/favicon.ico' });
         
     await message.reply({ embeds: [msg] });
 };
