@@ -44,7 +44,6 @@ function handii(hand, flip = false) {
             const kiai = group.map(card => card[row]).join(' ');
             combination.push(kiai);
         }
-        combination.push('');
     });
 
     return combination.join('\n');
