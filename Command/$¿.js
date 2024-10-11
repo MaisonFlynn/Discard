@@ -4,7 +4,8 @@ module.exports = async function Help(message) {
     const idk = [
         '¯\\_(ツ)_/¯',
         '∘ ∘ ∘ ( °ヮ° ) ?',
-        '( ꩜ ᯅ ꩜;)⁭⁭'
+        '( ꩜ ᯅ ꩜;)⁭⁭',
+        '(,,•᷄‎ࡇ•᷅ ,,)?'
     ];
 
     const rnd = idk[Math.floor(Math.random() * idk.length)];
