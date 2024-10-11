@@ -32,14 +32,20 @@ function handii(hand, flip = false) {
         return missionarii(rank, suit); // Return ASCII Card
     });
 
-    const combination = [];
-    for (let row = 0; row < 7; row++) {
-        const kiai = rows.map((card, i) => {
-            // Responsiveness
-            return (i % 3 === 0 && i !== 0) ? `\n${card[row]}` : card[row];
-        }).join(' ');
-        combination.push(kiai);
+    // Responsiveness
+    const trois = [];
+    for (let i = 0; i < rows.length; i += 3) {
+        trois.push(rows.slice(i, i + 3));
     }
+
+    const combination = [];
+    trois.forEach((group) => {
+        for (let row = 0; row < 7; row++) {
+            const kiai = group.map(card => card[row]).join(' ');
+            combination.push(kiai);
+        }
+        combination.push('\n');
+    });
 
     return combination.join('\n');
 }
