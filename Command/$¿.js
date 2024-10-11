@@ -10,10 +10,9 @@ module.exports = async function Help(message) {
             '`$-`\n' +
             '`$+`\n' +
             '`$<10-1000/10>`\n\n' +
-            '[Learn how to play Blackjack](https://bicyclecards.com/how-to-play/blackjack)'
+            '[( ꩜ ᯅ ꩜;)](https://bicyclecards.com/how-to-play/blackjack)'
         )
-        .setColor('#2B2D31')
-        .setFooter({ text: '( ꩜ ᯅ ꩜;)⁭⁭', iconURL: 'https://bicyclecards.com/wp-content/themes/bicyclecards/favicon.ico' });
+        .setColor('#2B2D31');
         
     await message.reply({ embeds: [msg] });
 };
