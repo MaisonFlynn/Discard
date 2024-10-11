@@ -4,7 +4,7 @@ const { btn } = require('../Utility/Button');
 
 async function Bet(message, P, B) {
     // 𝐁𝐄𝐓 # Val.
-    if (isNaN(B) || B < 10 || B > 100 || B % 10 !== 0) {
+    if (isNaN(B) || B < 10 || B > 1000 || B % 10 !== 0) {
         await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 𝐁𝐄𝐓!\u001b[0m\n```');
         return;
     }

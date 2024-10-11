@@ -7,7 +7,7 @@ module.exports = async function Help(message) {
       '$$\n' +
       '$-\n' +
       '$+\n' +
-      '$<10-100/10>\n' +
+      '$<10-1000/10>\n' +
       '```';
     
     await message.reply(CMD);
