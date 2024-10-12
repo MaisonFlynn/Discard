@@ -17,7 +17,7 @@ module.exports = async function Help(message) {
             '- `$$`: [̲̅$̲̅(̲̅1̲̅)̲̅$̲̅]\n' +
             '- `$-`: (° × ° )\n' +
             '- `$+`: (ᗒᗩᗕ)\n' +
-            '- `$<10-1000/10>`: (,,♡ཀ♡,,)\n\n' +
+            '- `$<10-1000/10>`: (づ ᴗ _ᴗ)づ.☘︎ ́˖\n\n' +
             `[${rnd}](https://bicyclecards.com/how-to-play/blackjack)`
         )
         .setColor('#2B2D31');
