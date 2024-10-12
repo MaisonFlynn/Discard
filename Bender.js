@@ -51,7 +51,7 @@ client.on('messageCreate', async message => {
 
 	if (CMD === '?') { // Help
 		await Help(message);
-	} else if (CMD === '!') { // Claim
+	} else if (CMD === '!') { // Daily
         await Claim(message, P);
     } else if (CMD === '#') { // Leaderboard
 		await Leaderboard(message);
