@@ -11,10 +11,6 @@
 + `$+`: Unmute
 + `$<10-1000/10>`: Bet
 
-## ETC
-
-+ +5₫/6m ≤ 50₫ → 🔊
-
 ## 🔎🐛
 
 [LMK](https://github.com/MaisonFlynn/Discard/issues)
