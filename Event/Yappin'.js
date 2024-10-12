@@ -1,6 +1,6 @@
 const User = require('../Model/User');
 
-module.exports = async function Voice(O, N, client) {
+module.exports = async function Yap(O, N, client) {
     const ID = N.id;
 
     // Fetch User

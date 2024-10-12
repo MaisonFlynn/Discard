@@ -20,7 +20,7 @@ const Balance = require('./Command/$$');
 const { Bet, Interac } = require('./Command/$N');
 const Mute = require('./Command/$-');
 const Unmute = require('./Command/$+');
-const Voice = require('./Event/Voice');
+const Yap = require('./Event/Yappin\'');
 
 connectDB(); // "( – ⌓ – )=3
 
@@ -81,7 +81,7 @@ client.on('interactionCreate', async interac => {
 
 // ▶• ılıılıılıılıılıılı. 0:69
 client.on('voiceStateUpdate', async (O, N) => {
-	await Voice(O, N, client);
+	await Yap(O, N, client);
 });
 
 // ∅🐛
