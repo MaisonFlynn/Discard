@@ -1,6 +1,6 @@
 const { Deck, deal } = require('../Utility/Deck');
-const { calc, handii } = require('../Utility/Game');
-const { btn } = require('../Utility/Button');
+const { calc, handii } = require('../Utility/Card');
+const { btn } = require('../Utility/Butt');
 
 async function Bet(message, P, B) {
     // 𝐁𝐄𝐓 # Val.
