@@ -11,13 +11,13 @@ module.exports = async function Help(message) {
 
     const msg = new EmbedBuilder()
         .setDescription(
-            '- `$?`\n' +
-            '- `$!`\n' +
-            '- `$#`\n' +
-            '- `$$`\n' +
-            '- `$-`\n' +
-            '- `$+`\n' +
-            '- `$<10-1000/10>`\n\n' +
+            '- `$?`: \n' +
+            '- `$!`: \n' +
+            '- `$#`: \n' +
+            '- `$$`: \n' +
+            '- `$-`: \n' +
+            '- `$+`: \n' +
+            '- `$<10-1000/10>`: \n\n' +
             `[${rnd}](https://bicyclecards.com/how-to-play/blackjack)`
         )
         .setColor('#2B2D31');
