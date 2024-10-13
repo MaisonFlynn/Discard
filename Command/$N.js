@@ -49,14 +49,14 @@ async function Bet(message, P, B) {
             });
 
             return;
-        } else { // 𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! & 1.5x B
+        } else { // 𝐖𝐈𝐍! & 1.5x B
             gayme.kaput = true;
             P.Dong += B * 2.5; // 1.5x B
             P.Bet = 0;
             await P.save();
 
             await message.reply({
-                content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B * 1.5}₫\`\`\``,
+                content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n\u001b[32m𝐖𝐈𝐍! +${B * 1.5}₫\u001b[0m\`\`\``,
                 components: []
             });
 
@@ -144,7 +144,7 @@ async function Interac(interac, P) {
 		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
 		if (pΣ > 21) {
 			await interac.update({
-				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${P.Bet}₫\`\`\``,
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${P.Bet}₫\u001b[0m\`\`\``,
 				components: []
 			});
 		} else {
@@ -158,10 +158,10 @@ async function Interac(interac, P) {
 
 			let msg = '';
 			if (dΣ > 21 || pΣ > dΣ) {
-                msg = `𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫`;
+                msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
                 P.Dong += B * 2;
             } else if (dΣ > pΣ) {
-                msg = `𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫`;
+                msg = `\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m`;
             } else {
                 msg = `𝐏𝐔𝐒𝐇! =${B}₫`; // 𝐓𝐈𝐄?
                 P.Dong += B; // =₫
@@ -194,7 +194,7 @@ async function Interac(interac, P) {
 			await P.save();
 	
 			await interac.update({
-				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫\`\`\``,
+				content: `\`\`\`𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m\`\`\``,
 				components: []
 			});
 		} else {
@@ -236,10 +236,10 @@ async function Interac(interac, P) {
 		// 𝐑𝐄𝐒𝐔𝐋𝐓
 		let msg = ``;
         if (dΣ > 21 || pΣ > dΣ) {
-            msg = `𝐏𝐋𝐀𝐘𝐄𝐑 𝐖𝐎𝐍! +${B}₫`;
+            msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
 			P.Dong += B * 2;
         } else if (dΣ > pΣ) {
-            msg = `𝐃𝐄𝐀𝐋𝐄𝐑 𝐖𝐎𝐍! -${B}₫`;
+            msg = `\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m`;
         } else {
             msg = `𝐏𝐔𝐒𝐇! =${B}₫`; // 𝐓𝐈𝐄?
 			P.Dong += B;
