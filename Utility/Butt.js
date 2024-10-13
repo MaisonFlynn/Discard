@@ -5,11 +5,11 @@ function btn(pΣ, dH) {
 		.addComponents(
 			new ButtonBuilder()
 				.setCustomId('HIT')
-				.setLabel('𝐇𝐈𝐓')
+				.setLabel('HIT')
 				.setStyle(ButtonStyle.Primary),
 			new ButtonBuilder()
 				.setCustomId('STAND')
-				.setLabel('𝐒𝐓𝐀𝐍𝐃')
+				.setLabel('STAND')
 				.setStyle(ButtonStyle.Secondary)
 		);
 
@@ -17,7 +17,7 @@ function btn(pΣ, dH) {
 		row.addComponents(
 			new ButtonBuilder()
 				.setCustomId('DOUBLE')
-				.setLabel('𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍')
+				.setLabel('DOUBLE DOWN')
 				.setStyle(ButtonStyle.Danger)
 		);
 	}
@@ -26,7 +26,7 @@ function btn(pΣ, dH) {
 		row.addComponents(
 			new ButtonBuilder()
 				.setCustomId('INSURANCE')
-				.setLabel('𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄')
+				.setLabel('INSURANCE')
 				.setStyle(ButtonStyle.Success)
 		);
 	}	
