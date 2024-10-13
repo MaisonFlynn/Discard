@@ -13,7 +13,7 @@
 
 ## WIP
 
-+ [ ] Splitting Pairs
++ [ ] Split
 
 ## 🔎🐛
 
