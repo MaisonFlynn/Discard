@@ -11,13 +11,13 @@ module.exports = async function Help(message) {
 
     const msg = new EmbedBuilder()
         .setDescription(
-            '- `$?`  ( • - • ) ...\n' +
-            '- `$!`  (,,>ヮ<,,)!\n' +
-            '- `$#`  ( ◡̀_◡́)ᕤ\n' +
-            '- `$$`  ($⩊$)\n' +
-            '- `$-`  (° × ° )\n' +
-            '- `$+`  (ᗒᗩᗕ)\n' +
-            '- `$<10-1000/10>`  (づ ᴗ _ᴗ)づ.☘︎ ́˖\n\n' +
+            '- `$?`\n' +
+            '- `$!`\n' +
+            '- `$#`\n' +
+            '- `$$`\n' +
+            '- `$-`\n' +
+            '- `$+`\n' +
+            '- `$<10-1000/10>`\n\n' +
             `[${rnd}](https://github.com/sponsors/MaisonFlynn)`
         )
         .setColor('#2B2D31');
