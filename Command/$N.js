@@ -102,14 +102,14 @@ async function Interac(interac, P) {
             P.Dong += iB * 2;
             gayme.kaput = true;
 
-            await interac.update({
-                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =${iB * 2}₫\`\`\``,
+            await interac.update({ // 𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n=${iB * 2}₫\`\`\``,
                 components: []
             });
         } else {
             // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
             await interac.update({
-                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n-${iB}₫!\`\`\``,
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n\u001b[31m-${iB}₫\u001b[0m\`\`\``,
                 components: [btn(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])],
 				ephemeral: true
             });
