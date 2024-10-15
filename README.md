@@ -1,4 +1,4 @@
-[![Discard](./Image/Discard.png)](#)
+[Discard](./Image/Discard.png)
 
 ## Self-Host
 
@@ -13,6 +13,7 @@ npm install
 ```
 
 `.env.example` → `.env`
++ DON'T Forget Environment Variable(s)
 
 ```
 npm start
