@@ -1,4 +1,4 @@
-[Discard](./Image/Discard.png)
+[![Discard](./Image/Discard.png)]
 
 ## Self-Host
 
