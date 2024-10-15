@@ -13,7 +13,7 @@ npm install
 ```
 
 `.env.example` → `.env`
-+ DON'T Forget Environment Variable(s)
++ Environment Variable(s) ✏️
 
 ```
 npm start
