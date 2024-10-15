@@ -3,8 +3,8 @@
 ## Self-Host
 
 + [Node.js](https://nodejs.org/en/download/package-manager)
-+ [MongoDB Atlas](https://www.mongodb.com/)
-+ [Discord Bot Token](https://discord.com/developers/applications)
++ [MongoDB](https://www.mongodb.com/)
++ [Discord](https://discord.com/developers/applications)
 
 ```
 git clone https://github.com/MaisonFlynn/Discard.git
@@ -12,10 +12,10 @@ cd Discard
 npm install
 ```
 
-Rename & Replace `.env.example` 
+`.env.example` → `.env`
 
 ```
-node Bender.js
+npm start
 ```
 
 Generate OAuth2 URL
