@@ -1,5 +1,26 @@
-[![Discard](./Image/Discard.png)](https://discord.com/oauth2/authorize?client_id=1292152109608861711&permissions=8&integration_type=0&scope=bot)
-[ADD](https://discord.com/oauth2/authorize?client_id=1292152109608861711&permissions=8&integration_type=0&scope=bot)
+[![Discard](./Image/Discard.png)](#)
+
+## Self-Host
+
++ [Node.js](https://nodejs.org/en/download/package-manager)
++ [MongoDB](https://www.mongodb.com/)
++ [Discord](https://discord.com/developers/applications)
+
+```
+git clone https://github.com/MaisonFlynn/Discard.git
+cd Discard
+npm install
+```
+
++ Rename & Replace `.env.example` 
+
+```
+node Bender.js
+```
+
+Generate OAuth2 URL
++ Bot
++ Administrator
 
 ## CMD
 
