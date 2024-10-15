@@ -3,8 +3,8 @@
 ## Self-Host
 
 + [Node.js](https://nodejs.org/en/download/package-manager)
-+ [MongoDB](https://www.mongodb.com/)
-+ [Discord](https://discord.com/developers/applications)
++ [MongoDB Atlas](https://www.mongodb.com/)
++ [Discord Bot Token](https://discord.com/developers/applications)
 
 ```
 git clone https://github.com/MaisonFlynn/Discard.git
@@ -12,7 +12,7 @@ cd Discard
 npm install
 ```
 
-+ Rename & Replace `.env.example` 
+Rename & Replace `.env.example` 
 
 ```
 node Bender.js
