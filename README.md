@@ -1,1 +1,1 @@
-<img src="Asset/Discard.gif" alt="Discard" width="100%" style="max-width: 500px;">
+<img src="Asset/Discard.gif" alt="Discard GIF" width="500" height="auto">
