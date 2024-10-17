@@ -1,4 +1,4 @@
-## Self-Host
+## Installation
 
 + [Node.js](https://nodejs.org/en/download/prebuilt-installer)
 + [Discord](https://youtu.be/gRhUL8zBc5w?si=SbKzbzkLAuBP8nUh)
