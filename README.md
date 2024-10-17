@@ -15,8 +15,8 @@ npm install
 `.env.example` → `.env`
 
 ```bash
-TOKEN=ODI4NTE0NzMyOTQ4ODU2NzQ4.YH7laQ.xXx1234abcdXxXxXx
-MONGO=mongodb+srv://<username>:<password>@cluster0.mongodb.net/mydatabase?retryWrites=true&w=majority
+TOKEN=Discord Bot
+MONGO=MongoDB URI
 ```
 
 ```bash
