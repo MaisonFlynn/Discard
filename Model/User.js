@@ -24,7 +24,7 @@ const Player = new mongoose.Schema({
   },
   Msg: { // Msg. User?
     type: Boolean,
-    default: true
+    default: false // !
   },
   Gayme: { // State
     pHand: {
