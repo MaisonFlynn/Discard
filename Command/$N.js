@@ -1,5 +1,5 @@
 const { Deck, deal } = require('../Utility/Deck');
-const { calc, handii } = require('../Utility/Card');
+const { calc, hand } = require('../Utility/Card');
 const { btn } = require('../Utility/Butt');
 
 async function Bet(message, P, B) {
@@ -44,7 +44,7 @@ async function Bet(message, P, B) {
             await P.save();
 
             await message.reply({
-                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n𝐏𝐔𝐒𝐇! =${B}₫\`\`\``,
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n𝐏𝐔𝐒𝐇! =${B}₫\`\`\``,
                 components: []
             });
 
@@ -56,7 +56,7 @@ async function Bet(message, P, B) {
             await P.save();
 
             await message.reply({
-                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n\u001b[32m𝐖𝐈𝐍! +${B * 1.5}₫\u001b[0m\`\`\``,
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[32m𝐖𝐈𝐍! +${B * 1.5}₫\u001b[0m\`\`\``,
                 components: []
             });
 
@@ -66,7 +66,7 @@ async function Bet(message, P, B) {
 
     // Cont.
     await message.reply({
-        content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
+        content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
         components: [btn(pΣ, gayme.dHand)],
         ephemeral: true
     });		
@@ -103,13 +103,13 @@ async function Interac(interac, P) {
             gayme.kaput = true;
 
             await interac.update({ // 𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫
-                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n=${iB * 2}₫\`\`\``,
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${hand(gayme.pHand, true)}\n\n=${iB * 2}₫\`\`\``,
                 components: []
             });
         } else {
             // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
             await interac.update({
-                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${handii(gayme.pHand, true)}\n\n\u001b[31m-${iB}₫\u001b[0m\`\`\``,
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${hand(gayme.pHand, true)}\n\n\u001b[31m-${iB}₫\u001b[0m\`\`\``,
                 components: [btn(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])],
 				ephemeral: true
             });
@@ -144,7 +144,7 @@ async function Interac(interac, P) {
 		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
 		if (pΣ > 21) {
 			await interac.update({
-				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${P.Bet}₫\u001b[0m\`\`\``,
+				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${P.Bet}₫\u001b[0m\`\`\``,
 				components: []
 			});
 		} else {
@@ -173,7 +173,7 @@ async function Interac(interac, P) {
             await P.save();
 
             await interac.update({
-                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
                 components: []
             });
 		}
@@ -194,7 +194,7 @@ async function Interac(interac, P) {
 			await P.save();
 	
 			await interac.update({
-				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m\`\`\``,
+				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m\`\`\``,
 				components: []
 			});
 		} else {
@@ -202,7 +202,7 @@ async function Interac(interac, P) {
 			await P.save();
 
 			await interac.update({
-				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\`\`\``,
+				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
 				components: [btn()],
 				ephemeral: true
 			});
@@ -251,7 +251,7 @@ async function Interac(interac, P) {
 		await P.save();
 
 		await interac.update({
-			content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${handii(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${handii(gayme.pHand, true)}\n\n${msg}\`\`\``,
+			content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
 			components: []
 		});		
 	}

@@ -21,15 +21,15 @@ function calc(hand) {
 }
 
 // ASCII Hand
-function handii(hand, flip = false) {
+function hand(hand, flip = false) {
     const rows = hand.map((card, index) => {
         if (index === 1 && !flip) {
-            return doggii(); // Hide Dealer's 2ⁿᵈ
+            return back(); // Hide Dealer's 2ⁿᵈ
         }
 		const rank = card.slice(0, card.length - 1);
         const suit = card.slice(-1);
 
-        return missionarii(rank, suit); // Return ASCII Card
+        return face(rank, suit); // Return ASCII Card
     });
 
     // Responsiveness
@@ -50,7 +50,7 @@ function handii(hand, flip = false) {
 }
 
 // Face-up
-function missionarii(rank, suit) {
+function face(rank, suit) {
     return [
         `┌─────────┐`,
         `│ ${rank}${rank.length === 1 ? ' ' : ''}      │`,
@@ -63,7 +63,7 @@ function missionarii(rank, suit) {
 }
 
 // Face-down
-function doggii() {
+function back() {
     return [
         `┌─────────┐`,
         `│░░░░░░░░░│`,
@@ -75,4 +75,4 @@ function doggii() {
     ];
 }
 
-module.exports = { calc, handii, doggii, missionarii };
+module.exports = { calc, hand, face, back };
