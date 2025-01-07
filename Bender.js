@@ -1,8 +1,8 @@
-require('dotenv').config(); // |_・)
+require('dotenv').config();
 
 const User = require('./Model/User');
 const connectDB = require('./Config/DB');
-const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -22,18 +22,17 @@ const Mute = require('./Command/$-');
 const Unmute = require('./Command/$+');
 const Yap = require('./Event/Yappin\'');
 
-connectDB(); // "( – ⌓ – )=3
+connectDB();
 
 const pree = '$'; // Prefix
 
 client.once('ready', () => {
 	console.log("Esskeetit!");
-	client.user.setActivity('Blackjack', { // Censored
+	client.user.setActivity('Blackjack', {
 		type: ActivityType.Playing,
 	});
 });
 
-// $?, $!, $#, $$ & $<10-100/10>
 client.on('messageCreate', async message => {
 	if (message.author.bot || !message.content.startsWith(pree)) return;
 
@@ -46,24 +45,17 @@ client.on('messageCreate', async message => {
 		await P.save();
 	}
 	
-	// CMD
 	const CMD = message.content.slice(pree.length).trim();
 
-	if (CMD === '?') { // Help
-		await Help(message);
-	} else if (CMD === '!') { // Daily
-        await Claim(message, P);
-    } else if (CMD === '#') { // Leaderboard
-		await Leaderboard(message);
-	} else if (CMD === '$') { // Balance
-        await Balance(message, P);
-    } else if (/^\d+$/.test(CMD)) { // Bet
-        let B = parseInt(CMD);
-        await Bet(message, P, B);
-    } else if (CMD === '-') { // Mute 🔔
-		await Mute(message, P);
-	} else if (CMD === '+') { // Unmute 🔔
-		await Unmute(message, P);
+	if (CMD === '$') {
+		const shmoney = await Claim(P);
+
+		const msg = new EmbedBuilder()
+			.setColor('#2B2D31')
+			.setTitle(`👋 <@${message.author.id}> ${P.Dong.toLocaleString()}₫`)
+			.setDescription(shmoney);
+	
+		await message.reply({ embeds: [msg], components: [row] });
 	}
 });
 
@@ -79,17 +71,14 @@ client.on('interactionCreate', async interac => {
     await Interac(interac, P);
 });
 
-// ▶• ılıılıılıılıılıılı. 0:69
 client.on('voiceStateUpdate', async (O, N) => {
 	await Yap(O, N, client);
 });
 
-// ∅🐛
 process.on('uncaughtException', (err) => {
     console.error(err);
 });
 
-// ∅🐛
 process.on('unhandledRejection', (err, idk) => {
     console.error(idk, err);
 });
