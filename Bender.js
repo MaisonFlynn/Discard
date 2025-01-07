@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const User = require('./Model/User');
 const connectDB = require('./Config/DB');
-const { Client, GatewayIntentBits, ActivityType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType, EmbedBuilder } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -13,14 +13,11 @@ const client = new Client({
 		GatewayIntentBits.GuildVoiceStates
     ]
 });
-const Help = require('./Command/$¿');
+const Btns = require('./Utility/Btns');
 const Claim = require('./Command/$!');
-const Leaderboard = require('./Command/$#');
-const Balance = require('./Command/$$');
-const { Bet, Interac } = require('./Command/$N');
-const Mute = require('./Command/$-');
-const Unmute = require('./Command/$+');
 const Yap = require('./Event/Yappin\'');
+
+const { Bet, Interac } = require('./Command/$N'); // !
 
 connectDB();
 
@@ -54,12 +51,13 @@ client.on('messageCreate', async message => {
 			.setColor('#2B2D31')
 			.setTitle(`👋 <@${message.author.id}> ${P.Dong.toLocaleString()}₫`)
 			.setDescription(shmoney);
-	
-		await message.reply({ embeds: [msg], components: [row] });
+		
+		const btn = Btns(!P.Msg);
+
+		await message.reply({ embeds: [msg], components: [btn] });
 	}
 });
 
-// 𝐇𝐈𝐓, 𝐒𝐓𝐀𝐍𝐃, 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍 & 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
 client.on('interactionCreate', async interac => {
     if (!interac.isButton()) return;
 
@@ -68,7 +66,29 @@ client.on('interactionCreate', async interac => {
 
     if (!P) return;
 
-    await Interac(interac, P);
+	if (interac.customId === 'MUTE') {
+		P.Msg = false;
+		await P.save();
+
+		const btns = Btns(false);
+		await interac.update({ components: [btns] });
+	} else if (interac.customId === 'UNMUTE') {
+		P.Msg = true;
+		await P.save();
+
+		const btns = Btns(true);
+		await interac.update({ components: [btns] });
+	} else if (interac.customId === 'LEADERBOARD') {
+		const { desc } = await Leaderboard(interac.guild);
+
+		const msg = EmbedBuilder.from(interac.message.embeds[0])
+			.setDescription(desc);
+
+		const btns = Btns(P.Msg, true);
+		await interac.update({ embeds: [msg], components: [btns] });
+	} else {
+		await Interac(interac, P);
+	}
 });
 
 client.on('voiceStateUpdate', async (O, N) => {
