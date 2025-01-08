@@ -43,45 +43,45 @@ function Btn2(cur, max, VND) {
 }
 
 function Btn3(pΣ, dH) {
-	const btn = new ActionRowBuilder()
-		.addComponents(
-			new ButtonBuilder()
-				.setCustomId('HIT')
-				.setLabel('𝐇𝐈𝐓')
-				.setStyle(ButtonStyle.Primary),
-			new ButtonBuilder()
-				.setCustomId('STAND')
-				.setLabel('𝐒𝐓𝐀𝐍𝐃')
-				.setStyle(ButtonStyle.Secondary)
-		);
+    const btn = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setCustomId('HIT')
+                .setLabel('𝐇𝐈𝐓')
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
+                .setCustomId('STAND')
+                .setLabel('𝐒𝐓𝐀𝐍𝐃')
+                .setStyle(ButtonStyle.Secondary)
+        );
 
-	if (pΣ === 9 || pΣ === 10 || pΣ === 11) {
-		btn.addComponents(
-			new ButtonBuilder()
-				.setCustomId('DOUBLE')
-				.setLabel('𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍')
-				.setStyle(ButtonStyle.Danger)
-		);
-	}
+    if (pΣ === 9 || pΣ === 10 || pΣ === 11) {
+        btn.addComponents(
+            new ButtonBuilder()
+                .setCustomId('DOUBLE')
+                .setLabel('𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍')
+                .setStyle(ButtonStyle.Danger)
+        );
+    }
 
-	if (dH && Array.isArray(dH) && dH.length > 0 && dH[0].startsWith('A')) {
-		btn.addComponents(
-			new ButtonBuilder()
-				.setCustomId('INSURANCE')
-				.setLabel('𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄')
-				.setStyle(ButtonStyle.Success)
-		);
-	}	
+    if (dH && Array.isArray(dH) && dH.length > 0 && dH[0].startsWith('A')) {
+        btn.addComponents(
+            new ButtonBuilder()
+                .setCustomId('INSURANCE')
+                .setLabel('𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄')
+                .setStyle(ButtonStyle.Success)
+        );
+    }
 
-	return btn;
+    return btn;
 }
 
 function Btn4() {
     return new ActionRowBuilder().addComponents(
         new ButtonBuilder()
-        .setCustomId('REPLAY')
-        .setEmoji('🔁')
-        .setStyle(ButtonStyle.Primary)
+            .setCustomId('REPLAY')
+            .setEmoji('🔁')
+            .setStyle(ButtonStyle.Primary)
     );
 }
 

@@ -3,11 +3,12 @@ require('dotenv').config();
 const User = require('./Model/User');
 const connectDB = require('./Config/DB');
 const { Client, GatewayIntentBits, ActivityType, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
-const { Btn1, Btn2 } = require('./Utility/Butt');
-const { Bet, Interac } = require('./Command/$N');
+const { Notification } = require('./Command/$±');
+const { Leaderboard } = require('./Command/$#');
 const Claim = require('./Command/$!');
-const Leaderboard = require('./Command/$#');
 const Yap = require('./Event/Yappin\'');
+const { Btn2 } = require('./Utility/Butt');
+const { Bet, Interac } = require('./Command/$N');
 
 connectDB();
 
@@ -17,8 +18,8 @@ const client = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildVoiceStates
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildVoiceStates
     ]
 });
 
@@ -37,38 +38,29 @@ client.on('messageCreate', async (message) => {
 });
 
 client.once('ready', () => {
-	console.log("Esskeetit!");
-	client.user.setActivity('Blackjack', {
-		type: ActivityType.Playing,
-	});
+    console.log("Esskeetit!");
+    client.user.setActivity('Blackjack', {
+        type: ActivityType.Playing,
+    });
 });
 
 client.on('messageCreate', async (message) => {
-	if (message.author.bot || !message.content.startsWith(pree)) return;
+    if (message.author.bot || !message.content.startsWith(pree)) return;
 
-	// 𝐏𝐋𝐀𝐘𝐄𝐑
-	const id = message.author.id;
-	let P = await User.findOne({ ID: id });
+    // 𝐏𝐋𝐀𝐘𝐄𝐑
+    const id = message.author.id;
+    let P = await User.findOne({ ID: id });
 
-	if (!P) { // IF !𝐏𝐋𝐀𝐘𝐄𝐑, +𝐏𝐋𝐀𝐘𝐄𝐑
-		P = new User({ ID: id }); 
-		await P.save();
-	}
-	
-	const CMD = message.content.slice(pree.length).trim();
+    if (!P) { // IF !𝐏𝐋𝐀𝐘𝐄𝐑, +𝐏𝐋𝐀𝐘𝐄𝐑
+        P = new User({ ID: id });
+        await P.save();
+    }
 
-	if (CMD === '$') {
-		const shmoney = await Claim(P);
+    const CMD = message.content.slice(pree.length).trim();
 
-		const msg = new EmbedBuilder()
-			.setColor('#2B2D31')
-			.setTitle(`👋 ${message.member ? message.member.displayName : message.author.username} \`${P.Dong.toLocaleString()}₫\``)
-			.setDescription(shmoney);
-		
-		const btn = Btn1(P.Msg);
-
-		await message.reply({ embeds: [msg], components: [btn] });
-	}
+    if (CMD === '$') {
+        await Claim(message, P)
+    }
 });
 
 client.on('interactionCreate', async (interac) => {
@@ -79,30 +71,19 @@ client.on('interactionCreate', async (interac) => {
 
     if (!P) return;
 
-	let bet = Math.min(Math.floor(P.Dong / 2 / 10) * 10, 1000);
+    let bet = Math.min(Math.floor(P.Dong / 2 / 10) * 10, 1000);
 
-	// TODO: Modularize
     if (interac.isButton()) {
-        if (interac.customId === 'MUTE') {
-            P.Msg = false;
-            await P.save();
-            const btn = Btn1(false);
-            await interac.update({ components: [btn] });
-        } else if (interac.customId === 'UNMUTE') {
-            P.Msg = true;
-            await P.save();
-            const btn = Btn1(true);
-            await interac.update({ components: [btn] });
+        if (['MUTE', 'UNMUTE'].includes(interac.customId)) {
+            await Notification(interac, P);
         } else if (interac.customId === 'LEADERBOARD') {
-            const { desc } = await Leaderboard(interac.guild);
-            const msg = EmbedBuilder.from(interac.message.embeds[0]).setDescription(desc);
-            const btn = Btn1(P.Msg, true);
-            await interac.update({ embeds: [msg], components: [btn] });
+            await Leaderboard(interac, P);
         } else if (interac.customId === 'REPLAY') {
-			interac.customId = 'BLACKJACK';
-        } 
-		
-		if (interac.customId === 'BLACKJACK') {
+            interac.customId = 'BLACKJACK';
+        }
+
+        // TODO: Refactor
+        if (interac.customId === 'BLACKJACK') {
             const msg = new EmbedBuilder()
                 .setColor('#2B2D31')
                 .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} \`${P.Dong.toLocaleString()}₫\``)
@@ -119,8 +100,8 @@ client.on('interactionCreate', async (interac) => {
             const collector = interac.channel.createMessageComponentCollector({ filter, time: 60000 });
 
             collector.on('collect', async (interacBtn) => {
-				if (interacBtn.customId === 'CONFIRM') {
-					collector.stop();
+                if (interacBtn.customId === 'CONFIRM') {
+                    collector.stop();
                     await Bet(interacBtn, P, bet);
                     return;
                 }
@@ -148,7 +129,7 @@ client.on('interactionCreate', async (interac) => {
                     return;
                 }
 
-				const btn2 = Btn2(bet, Math.min(P.Dong, 1000), P.Dong);
+                const btn2 = Btn2(bet, Math.min(P.Dong, 1000), P.Dong);
                 const msg2 = new EmbedBuilder()
                     .setColor('#2B2D31')
                     .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} ${P.Dong.toLocaleString()}₫`)
@@ -178,14 +159,14 @@ client.on('interactionCreate', async (interac) => {
             .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} \`${P.Dong.toLocaleString()}₫\``)
             .setDescription(`\`${bet}₫\``);
 
-		const btn = Btn2(bet, Math.min(P.Dong, 1000), P.Dong);
+        const btn = Btn2(bet, Math.min(P.Dong, 1000), P.Dong);
 
         await interac.update({ embeds: [msg], components: [btn] });
     }
 });
 
 client.on('voiceStateUpdate', async (O, N) => {
-	await Yap(O, N, client);
+    await Yap(O, N, client);
 });
 
 process.on('uncaughtException', (err) => {

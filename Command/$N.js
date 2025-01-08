@@ -34,7 +34,7 @@ async function Bet(I, P, B) {
             await I.reply({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n𝐏𝐔𝐒𝐇! =${B}₫\`\`\``,
                 components: [Btn4()],
-				ephemeral: true
+                ephemeral: true
             });
 
             return;
@@ -46,7 +46,7 @@ async function Bet(I, P, B) {
             await I.reply({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[32m𝐖𝐈𝐍! +${B * 1.5}₫\u001b[0m\`\`\``,
                 components: [Btn4()],
-				ephemeral: true
+                ephemeral: true
             });
 
             return;
@@ -59,19 +59,19 @@ async function Bet(I, P, B) {
         content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
         components: [Btn3(pΣ, gayme.dHand)],
         ephemeral: true
-    });		
+    });
 };
 
 async function Interac(I, P) {
     const { Deck } = require('../Utility/Deck');
     let deck = Deck();
 
-	const gayme = P.Gayme;
-	let B = P.Bet;
-	let dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
+    const gayme = P.Gayme;
+    let B = P.Bet;
+    let dΣ = calc([gayme.dHand[0]]); // ONLY Dealer's 1ˢᵗ
 
-	// 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
-	if (I.customId === 'INSURANCE') {
+    // 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
+    if (I.customId === 'INSURANCE') {
         if (gayme.kaput || gayme.insured) return;
 
         // 𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄 Val. 1/2 B
@@ -98,64 +98,64 @@ async function Interac(I, P) {
             await I.update({ // 𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${hand(gayme.pHand, true)}\n\n=${iB * 2}₫\`\`\``,
                 components: [],
-				ephemeral: true
+                ephemeral: true
             });
         } else {
             // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
             await I.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${hand(gayme.pHand, true)}\n\n\u001b[31m-${iB}₫\u001b[0m\`\`\``,
                 components: [Btn3(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])],
-				ephemeral: true
+                ephemeral: true
             });
         }
         return;
     }
 
-	// 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍
-	if (I.customId === 'DOUBLE') {
-		if (gayme.kaput || !(gayme.pHand.length === 2 && (calc(gayme.pHand) === 9 || calc(gayme.pHand) === 10 || calc(gayme.pHand) === 11))) return;
+    // 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍
+    if (I.customId === 'DOUBLE') {
+        if (gayme.kaput || !(gayme.pHand.length === 2 && (calc(gayme.pHand) === 9 || calc(gayme.pHand) === 10 || calc(gayme.pHand) === 11))) return;
 
-		// 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍 Val.
-		if (P.Dong < B) {
-			await I.reply({
+        // 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍 Val.
+        if (P.Dong < B) {
+            await I.reply({
                 content: '```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```',
                 ephemeral: true
             });
             return;
-		}
+        }
 
-		// - BB
-		P.Dong -= B;
-		P.Bet = B * 2;
-		B = P.Bet;
+        // - BB
+        P.Dong -= B;
+        P.Bet = B * 2;
+        B = P.Bet;
 
-		// + Card
-		gayme.pHand.push(deck.pop());
-		gayme.kaput = true;
+        // + Card
+        gayme.pHand.push(deck.pop());
+        gayme.kaput = true;
 
-		P.Gayme = gayme;
-		await P.save();
-		
-		const pΣ = calc(gayme.pHand);
+        P.Gayme = gayme;
+        await P.save();
 
-		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
-		if (pΣ > 21) {
-			await I.update({
-				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${P.Bet}₫\u001b[0m\`\`\``,
-				components: [Btn4()],
-				ephemeral: true
-			});
-		} else {
-			dΣ = calc(gayme.dHand);
+        const pΣ = calc(gayme.pHand);
 
-			// 𝐃𝐄𝐀𝐋𝐄𝐑 𝐇𝐈𝐓 >= 17
-			while (dΣ < 17 || (dΣ === 17 && gayme.dHand.some(card => card.startsWith('A')))) {
+        // 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
+        if (pΣ > 21) {
+            await I.update({
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${P.Bet}₫\u001b[0m\`\`\``,
+                components: [Btn4()],
+                ephemeral: true
+            });
+        } else {
+            dΣ = calc(gayme.dHand);
+
+            // 𝐃𝐄𝐀𝐋𝐄𝐑 𝐇𝐈𝐓 >= 17
+            while (dΣ < 17 || (dΣ === 17 && gayme.dHand.some(card => card.startsWith('A')))) {
                 gayme.dHand.push(deck.pop());
                 dΣ = calc(gayme.dHand);
             }
 
-			let msg = '';
-			if (dΣ > 21 || pΣ > dΣ) {
+            let msg = '';
+            if (dΣ > 21 || pΣ > dΣ) {
                 msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
                 P.Dong += B * 2;
             } else if (dΣ > pΣ) {
@@ -173,89 +173,89 @@ async function Interac(I, P) {
             await I.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
                 components: [Btn4()],
-				ephemeral: true
+                ephemeral: true
             });
-		}
-	}
+        }
+    }
 
-	// 𝐇𝐈𝐓
-	if (I.customId === 'HIT') {
-		if (gayme.kaput) return;
+    // 𝐇𝐈𝐓
+    if (I.customId === 'HIT') {
+        if (gayme.kaput) return;
 
-		gayme.pHand.push(deck.pop());
+        gayme.pHand.push(deck.pop());
         const pΣ = calc(gayme.pHand);
 
-		// 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
-		if (pΣ > 21) {
-			gayme.kaput = true;
-			P.Bet = 0;
-			P.Gayme = gayme;
-			await P.save();
-	
-			await I.update({
-				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m\`\`\``,
-				components: [Btn4()],
-				ephemeral: true
-			});
-		} else {
-			P.Gayme = gayme;
-			await P.save();
+        // 𝐏𝐋𝐀𝐘𝐄𝐑 𝐁𝐔𝐒𝐓!
+        if (pΣ > 21) {
+            gayme.kaput = true;
+            P.Bet = 0;
+            P.Gayme = gayme;
+            await P.save();
 
-			await I.update({
-				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
-				components: [Btn3()],
-				ephemeral: true
-			});
-		}
-	}
+            await I.update({
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m\`\`\``,
+                components: [Btn4()],
+                ephemeral: true
+            });
+        } else {
+            P.Gayme = gayme;
+            await P.save();
 
-	// 𝐒𝐓𝐀𝐍𝐃
-	if (I.customId === 'STAND') {
-		if (gayme.kaput) return;
+            await I.update({
+                content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
+                components: [Btn3()],
+                ephemeral: true
+            });
+        }
+    }
 
-		// 𝐃𝐄𝐀𝐋𝐄𝐑'𝐒 𝐓𝐔𝐑𝐍
-		while (true) {
-			let dΣ = calc(gayme.dHand);
+    // 𝐒𝐓𝐀𝐍𝐃
+    if (I.customId === 'STAND') {
+        if (gayme.kaput) return;
 
-			// "𝘚𝘰𝘧𝘵 17"
-			let A = gayme.dHand.some(card => card[0] === 'A'); // Check IF Ace
-			let S = (dΣ === 17 && A);
+        // 𝐃𝐄𝐀𝐋𝐄𝐑'𝐒 𝐓𝐔𝐑𝐍
+        while (true) {
+            let dΣ = calc(gayme.dHand);
 
-			// 𝐃𝐄𝐀𝐋𝐄𝐑 MUST 𝐇𝐈𝐓 IF < 17 || 𝘚𝘰𝘧𝘵 17
-			if (dΣ >= 17 && !S) {
-				break; // 𝐒𝐓𝐀𝐍𝐃 ON >= 17 (≠ 𝘚𝘰𝘧𝘵 17)
-			}
+            // "𝘚𝘰𝘧𝘵 17"
+            let A = gayme.dHand.some(card => card[0] === 'A'); // Check IF Ace
+            let S = (dΣ === 17 && A);
 
-			// 𝐃𝐄𝐀𝐋𝐄𝐑 DRAW
-			gayme.dHand.push(deck.pop());
-		}
+            // 𝐃𝐄𝐀𝐋𝐄𝐑 MUST 𝐇𝐈𝐓 IF < 17 || 𝘚𝘰𝘧𝘵 17
+            if (dΣ >= 17 && !S) {
+                break; // 𝐒𝐓𝐀𝐍𝐃 ON >= 17 (≠ 𝘚𝘰𝘧𝘵 17)
+            }
 
-		const dΣ = calc(gayme.dHand);
-		const pΣ = calc(gayme.pHand);
+            // 𝐃𝐄𝐀𝐋𝐄𝐑 DRAW
+            gayme.dHand.push(deck.pop());
+        }
 
-		// 𝐑𝐄𝐒𝐔𝐋𝐓
-		let msg = ``;
+        const dΣ = calc(gayme.dHand);
+        const pΣ = calc(gayme.pHand);
+
+        // 𝐑𝐄𝐒𝐔𝐋𝐓
+        let msg = ``;
         if (dΣ > 21 || pΣ > dΣ) {
             msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
-			P.Dong += B * 2;
+            P.Dong += B * 2;
         } else if (dΣ > pΣ) {
             msg = `\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m`;
         } else {
             msg = `𝐏𝐔𝐒𝐇! =${B}₫`; // 𝐓𝐈𝐄?
-			P.Dong += B;
+            P.Dong += B;
         }
 
-		gayme.kaput = true;
-		P.Bet = 0;
-		P.Gayme = gayme;
-		await P.save();
+        gayme.kaput = true;
+        P.Bet = 0;
+        P.Gayme = gayme;
+        await P.save();
 
-		await I.update({
-			content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
-			components: [Btn4()],
+        await I.update({
+            content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
+            components: [Btn4()],
             ephemeral: true
-		});		
-	}
+        });
+    }
 };
 
 module.exports = { Bet, Interac };

@@ -24,13 +24,13 @@ module.exports = async function Yap(O, N, client) {
         const I = Date.now(); // 𝐼 t
         const t = I - U.Time; // t
 
-		// t → m
-		const tm = Math.floor(t / (1000 * 60));
+        // t → m
+        const tm = Math.floor(t / (1000 * 60));
 
-		// Limit Superior = 60m
-		const limsup = Math.min(tm, 60);
+        // Limit Superior = 60m
+        const limsup = Math.min(tm, 60);
 
-		// +5₫/6m ≤ 50₫ → VC
+        // +5₫/6m ≤ 50₫ → VC
         const oorah = Math.floor(limsup / 6) * 5;
 
         // 50₫
@@ -49,7 +49,7 @@ module.exports = async function Yap(O, N, client) {
         // Msg. IF Unmuted
         const M = await client.users.fetch(ID);
         if (U.Msg && D > 0) {
-            M.send(`\`\`\`+${D}₫ / ${formulation}\`\`\``).catch(() =>{
+            M.send(`\`\`\`+${D}₫ / ${formulation}\`\`\``).catch(() => {
                 // IF Muted, +₫ & ∅ Msg.
             });
         }

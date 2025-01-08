@@ -1,9 +1,11 @@
 const User = require('../Model/User');
+const { EmbedBuilder } = require('discord.js');
+const { Btn1 } = require('../Utility/Butt');
 
-module.exports = async function Leaderboard(guild) {
+async function GETLeaderboard(guild) {
   let U = await User.find({}); // ALL User(s)
   const M = await guild.members.fetch();
-  
+
   const L = U
     .filter((u) => M.has(u.ID))
     .sort((a, b) => b.Dong - a.Dong)
@@ -16,4 +18,15 @@ module.exports = async function Leaderboard(guild) {
   return {
     desc: L.length ? L.join('\n') : '?',
   };
+}
+
+exports.Leaderboard = async (I, P) => {
+  const { desc } = await GETLeaderboard(I.guild);
+
+  const msg = EmbedBuilder.from(I.message.embeds[0]).setDescription(desc);
+  const btn = Btn1(P.Msg, true);
+
+  await I.update({ embeds: [msg], components: [btn] });
 };
+
+module.exports.GETLeaderboard = GETLeaderboard;
