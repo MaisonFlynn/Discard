@@ -1,20 +1,8 @@
 const { Deck, deal } = require('../Utility/Deck');
 const { calc, hand } = require('../Utility/Card');
-const { btn } = require('../Utility/Butt');
+const { Btn3, Btn4 } = require('../Utility/Butt');
 
 async function Bet(message, P, B) {
-    // 𝐁𝐄𝐓 # Val.
-    if (isNaN(B) || B < 10 || B > 1000 || B % 10 !== 0) {
-        await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 ₫!\u001b[0m\n```');
-        return;
-    }
-
-    // ₫ Val.
-    if (P.Dong < B) {
-        await message.reply('```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```');
-        return;
-    }
-
     // -₫
     P.Dong -= B;
     P.Bet = B;
@@ -45,7 +33,7 @@ async function Bet(message, P, B) {
 
             await message.reply({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n𝐏𝐔𝐒𝐇! =${B}₫\`\`\``,
-                components: []
+                components: [Btn4()]
             });
 
             return;
@@ -57,7 +45,7 @@ async function Bet(message, P, B) {
 
             await message.reply({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[32m𝐖𝐈𝐍! +${B * 1.5}₫\u001b[0m\`\`\``,
-                components: []
+                components: [Btn4()]
             });
 
             return;
@@ -67,7 +55,7 @@ async function Bet(message, P, B) {
     // Cont.
     await message.reply({
         content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
-        components: [btn(pΣ, gayme.dHand)],
+        components: [Btn3(pΣ, gayme.dHand)],
         ephemeral: true
     });		
 };
@@ -110,7 +98,7 @@ async function Interac(interac, P) {
             // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
             await interac.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${hand(gayme.pHand, true)}\n\n\u001b[31m-${iB}₫\u001b[0m\`\`\``,
-                components: [btn(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])],
+                components: [Btn3(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])],
 				ephemeral: true
             });
         }
@@ -145,7 +133,7 @@ async function Interac(interac, P) {
 		if (pΣ > 21) {
 			await interac.update({
 				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${P.Bet}₫\u001b[0m\`\`\``,
-				components: []
+				components: [Btn4()]
 			});
 		} else {
 			dΣ = calc(gayme.dHand);
@@ -174,7 +162,7 @@ async function Interac(interac, P) {
 
             await interac.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
-                components: []
+                components: [Btn4()]
             });
 		}
 	}
@@ -195,7 +183,7 @@ async function Interac(interac, P) {
 	
 			await interac.update({
 				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m\`\`\``,
-				components: []
+				components: [Btn4()]
 			});
 		} else {
 			P.Gayme = gayme;
@@ -203,7 +191,7 @@ async function Interac(interac, P) {
 
 			await interac.update({
 				content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
-				components: [btn()],
+				components: [Btn3()],
 				ephemeral: true
 			});
 		}
@@ -252,7 +240,7 @@ async function Interac(interac, P) {
 
 		await interac.update({
 			content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
-			components: []
+			components: [Btn4()]
 		});		
 	}
 };

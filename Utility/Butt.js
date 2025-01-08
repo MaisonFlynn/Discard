@@ -1,7 +1,46 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
-function btn(pΣ, dH) {
-	const row = new ActionRowBuilder()
+function Btn1(Msg, L = false) {
+    return new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+            .setCustomId('BLACKJACK')
+            .setEmoji('♠️')
+            .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+            .setCustomId('LEADERBOARD')
+            .setEmoji('🏆')
+            .setStyle(ButtonStyle.Secondary)
+            .setDisabled(L),
+        new ButtonBuilder()
+            .setCustomId(Msg ? 'UNMUTE' : 'MUTE')
+            .setEmoji(Msg ? '🔔' : '🔕')
+            .setStyle(ButtonStyle.Secondary)
+    );
+}
+
+function Btn2() {
+    return new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+        .setCustomId('INCREASE')
+        .setEmoji('➕')
+        .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+            .setCustomId('DECREASE')
+            .setEmoji('➖')
+            .setStyle(ButtonStyle.Danger),
+        new ButtonBuilder()
+            .setCustomId('CUSTOM')
+            .setEmoji('✏️')
+            .setStyle(ButtonStyle.Secondary),
+        new ButtonBuilder()
+            .setCustomId('CONFIRM')
+            .setEmoji('✅')
+            .setStyle(ButtonStyle.Success)
+    );
+}
+
+function Btn3(pΣ, dH) {
+	const btn = new ActionRowBuilder()
 		.addComponents(
 			new ButtonBuilder()
 				.setCustomId('HIT')
@@ -14,7 +53,7 @@ function btn(pΣ, dH) {
 		);
 
 	if (pΣ === 9 || pΣ === 10 || pΣ === 11) {
-		row.addComponents(
+		btn.addComponents(
 			new ButtonBuilder()
 				.setCustomId('DOUBLE')
 				.setLabel('𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍')
@@ -23,7 +62,7 @@ function btn(pΣ, dH) {
 	}
 
 	if (dH && Array.isArray(dH) && dH.length > 0 && dH[0].startsWith('A')) {
-		row.addComponents(
+		btn.addComponents(
 			new ButtonBuilder()
 				.setCustomId('INSURANCE')
 				.setLabel('𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄')
@@ -31,7 +70,16 @@ function btn(pΣ, dH) {
 		);
 	}	
 
-	return row;
+	return btn;
 }
 
-module.exports = { btn };
+function Btn4() {
+    return new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+        .setCustomId('REPLAY')
+        .setEmoji('🔁')
+        .setStyle(ButtonStyle.Primary)
+    );
+}
+
+module.exports = { Btn1, Btn2, Btn3, Btn4 };
