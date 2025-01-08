@@ -81,6 +81,7 @@ client.on('interactionCreate', async (interac) => {
 
 	let bet = Math.min(Math.floor(P.Dong / 2 / 10) * 10, 1000);
 
+	// TODO: Modularize
     if (interac.isButton()) {
         if (interac.customId === 'MUTE') {
             P.Msg = false;
