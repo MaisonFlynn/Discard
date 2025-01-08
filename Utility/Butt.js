@@ -12,22 +12,24 @@ function Btn1(Msg, L = false) {
             .setStyle(ButtonStyle.Secondary)
             .setDisabled(L),
         new ButtonBuilder()
-            .setCustomId(Msg ? 'UNMUTE' : 'MUTE')
-            .setEmoji(Msg ? '🔔' : '🔕')
+            .setCustomId(Msg ? 'MUTE' : 'UNMUTE')
+            .setEmoji(Msg ? '🔕' : '🔔')
             .setStyle(ButtonStyle.Secondary)
     );
 }
 
-function Btn2() {
+function Btn2(cur, max, VND) {
     return new ActionRowBuilder().addComponents(
         new ButtonBuilder()
-        .setCustomId('INCREASE')
-        .setEmoji('➕')
-        .setStyle(ButtonStyle.Primary),
+            .setCustomId('INCREASE')
+            .setEmoji('➕')
+            .setStyle(ButtonStyle.Primary)
+            .setDisabled(cur >= max),
         new ButtonBuilder()
             .setCustomId('DECREASE')
             .setEmoji('➖')
-            .setStyle(ButtonStyle.Danger),
+            .setStyle(ButtonStyle.Danger)
+            .setDisabled(cur <= 10),
         new ButtonBuilder()
             .setCustomId('CUSTOM')
             .setEmoji('✏️')
@@ -36,6 +38,7 @@ function Btn2() {
             .setCustomId('CONFIRM')
             .setEmoji('✅')
             .setStyle(ButtonStyle.Success)
+            .setDisabled(VND < 10)
     );
 }
 

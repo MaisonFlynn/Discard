@@ -1,19 +1,19 @@
 const User = require('../Model/User');
 
-module.exports = async function Leaderboard(gangnam) {
+module.exports = async function Leaderboard(guild) {
   let U = await User.find({}); // ALL User(s)
-
-  const Top5 = U.sort((a, b) => b.Dong - a.Dong).slice(0, 3);
+  const M = await guild.members.fetch();
   
-  const L = await Promise.all(
-    Top5.map(async (u, i) => {
-      const m = await gangnam.members.fetch(u.ID).catch(() => null);
-      let emoji = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
-      return `${emoji} ${u.Dong.toLocaleString()}₫ <@${m ? m.id : '?'}>`;
-    })
-  );
+  const L = U
+    .filter((u) => M.has(u.ID))
+    .sort((a, b) => b.Dong - a.Dong)
+    .slice(0, 3)
+    .map((u, i) => {
+      const m = M.get(u.ID);
+      return `${['🥇', '🥈', '🥉'][i]} ${u.Dong.toLocaleString()}₫ <@${m ? m.id : '?'}>`;
+    });
 
   return {
-    desc: L.join('\n'),
+    desc: L.length ? L.join('\n') : '?',
   };
 };
