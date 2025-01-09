@@ -73,8 +73,7 @@ exports.Modal = async (interac, P) => {
 
     if (isNaN(bet) || bet < 10 || bet > 1000 || bet % 10 !== 0 || bet > P.Dong) {
         await interac.reply({
-            content: '```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 ₫! (𝟏𝟎-𝟏𝐊/𝟏𝟎)\u001b[0m\n```',
-            ephemeral: true,
+            content: '```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 ₫! (𝟏𝟎-𝟏𝐊/𝟏𝟎)\u001b[0m\n```'
         });
         return;
     }

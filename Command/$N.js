@@ -33,8 +33,7 @@ async function Bet(I, P, B) {
 
             await I.reply({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n𝐏𝐔𝐒𝐇! =${B}₫\`\`\``,
-                components: [Btn4()],
-                ephemeral: true
+                components: [Btn4()]
             });
 
             return;
@@ -45,8 +44,7 @@ async function Bet(I, P, B) {
 
             await I.reply({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[32m𝐖𝐈𝐍! +${B * 1.5}₫\u001b[0m\`\`\``,
-                components: [Btn4()],
-                ephemeral: true
+                components: [Btn4()]
             });
 
             return;
@@ -57,8 +55,7 @@ async function Bet(I, P, B) {
     await I.deferUpdate();
     await I.followUp({
         content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
-        components: [Btn3(pΣ, gayme.dHand)],
-        ephemeral: true
+        components: [Btn3(pΣ, gayme.dHand)]
     });
 };
 
@@ -78,8 +75,7 @@ async function Interac(I, P) {
         const iB = Math.floor(B / 2);
         if (P.Dong < iB) {
             await I.reply({
-                content: '```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```',
-                ephemeral: true
+                content: '```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```'
             });
             return;
         }
@@ -97,15 +93,13 @@ async function Interac(I, P) {
 
             await I.update({ // 𝐈𝐍𝐒𝐔𝐑𝐄𝐃! =₫
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${calc(gayme.dHand)}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${hand(gayme.pHand, true)}\n\n=${iB * 2}₫\`\`\``,
-                components: [],
-                ephemeral: true
+                components: []
             });
         } else {
             // !Blackjack: -𝐈𝐍𝐒𝐔𝐑𝐀𝐍𝐂𝐄
             await I.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${calc(gayme.pHand)}\n${hand(gayme.pHand, true)}\n\n\u001b[31m-${iB}₫\u001b[0m\`\`\``,
-                components: [Btn3(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])],
-                ephemeral: true
+                components: [Btn3(calc(gayme.pHand), gayme.pHand, gayme.dHand[0])]
             });
         }
         return;
@@ -118,8 +112,7 @@ async function Interac(I, P) {
         // 𝐃𝐎𝐔𝐁𝐋𝐄 𝐃𝐎𝐖𝐍 Val.
         if (P.Dong < B) {
             await I.reply({
-                content: '```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```',
-                ephemeral: true
+                content: '```ansi\n\u001b[31m𝐈𝐍𝐒𝐔𝐅𝐅𝐈𝐂𝐈𝐄𝐍𝐓 ₫!\u001b[0m\n```'
             });
             return;
         }
@@ -142,8 +135,7 @@ async function Interac(I, P) {
         if (pΣ > 21) {
             await I.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${P.Bet}₫\u001b[0m\`\`\``,
-                components: [Btn4()],
-                ephemeral: true
+                components: [Btn4()]
             });
         } else {
             dΣ = calc(gayme.dHand);
@@ -172,8 +164,7 @@ async function Interac(I, P) {
 
             await I.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
-                components: [Btn4()],
-                ephemeral: true
+                components: [Btn4()]
             });
         }
     }
@@ -194,8 +185,7 @@ async function Interac(I, P) {
 
             await I.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n\u001b[31m𝐋𝐎𝐒𝐄! -${B}₫\u001b[0m\`\`\``,
-                components: [Btn4()],
-                ephemeral: true
+                components: [Btn4()]
             });
         } else {
             P.Gayme = gayme;
@@ -203,8 +193,7 @@ async function Interac(I, P) {
 
             await I.update({
                 content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, false)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\`\`\``,
-                components: [Btn3()],
-                ephemeral: true
+                components: [Btn3()]
             });
         }
     }
@@ -252,8 +241,7 @@ async function Interac(I, P) {
 
         await I.update({
             content: `\`\`\`ansi\n𝐃𝐄𝐀𝐋𝐄𝐑 ${dΣ}\n${hand(gayme.dHand, true)}\n\n𝐏𝐋𝐀𝐘𝐄𝐑 ${pΣ}\n${hand(gayme.pHand, true)}\n\n${msg}\`\`\``,
-            components: [Btn4()],
-            ephemeral: true
+            components: [Btn4()]
         });
     }
 };
