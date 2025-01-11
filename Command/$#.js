@@ -18,7 +18,7 @@ async function GETLeaderboard(guild) {
     });
 
   return {
-    desc: L.length ? L.join('\n') : '?',
+    desc: L.length ? L.join('') : '?',
   };
 }
 
