@@ -14,7 +14,7 @@ async function GETLeaderboard(guild) {
       const m = M.get(u.ID);
       const n = m ? M.displayName : u.username;
 
-      return `${['🥇', '🥈', '🥉'][i]} \`\`\`ansi\n\u001b[33m${u.Dong.toLocaleString()}₫\u001b[0m\n\`\`\` ${u}`;
+      return `\`\`\`ansi\n${['🥇', '🥈', '🥉'][i]} \u001b[33m${u.Dong.toLocaleString()}₫\u001b[0m ${n}\n\`\`\``;
     });
 
   return {
