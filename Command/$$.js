@@ -12,7 +12,7 @@ exports.Blackjack = async (interac, P) => {
         const embed = new EmbedBuilder()
             .setColor('#2B2D31')
             .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} \`${P.Dong.toLocaleString()}₫\``)
-            .setDescription(`\`-${P.Bet.toLocaleString()}₫\``);
+            .setDescription(`\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``);
 
         const btn = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
         await interac.update({ embeds: [embed], components: [btn] });
@@ -61,7 +61,7 @@ exports.Blackjack = async (interac, P) => {
         const msg2 = new EmbedBuilder()
             .setColor('#2B2D31')
             .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} ${P.Dong.toLocaleString()}₫`)
-            .setDescription(`\`-${P.Bet.toLocaleString()}₫\``);
+            .setDescription(`\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``);
 
         await btnInterac.update({ embeds: [msg2], components: [btn2] });
     });
@@ -84,7 +84,7 @@ exports.Modal = async (interac, P) => {
     const embed = new EmbedBuilder()
         .setColor('#2B2D31')
         .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} \`${P.Dong.toLocaleString()}₫\``)
-        .setDescription(`\`-${P.Bet.toLocaleString()}₫\``);
+        .setDescription(`\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``);
 
     const btn = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
 
