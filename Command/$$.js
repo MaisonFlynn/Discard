@@ -8,11 +8,14 @@ exports.Blackjack = async (interac, P) => {
         await P.save();
     }
 
+    const dong = `\u001b[33m${P.Dong.toLocaleString()}₫\u001b[0m`;
+    const title = `\`\`\`ansi\n👋 ${interac.member ? interac.member.displayName : interac.user.username} ${dong}\n\`\`\``;
+    const shmoney = `\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``;
+
     const msg = async () => {
         const embed = new EmbedBuilder()
             .setColor('#2B2D31')
-            .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} \`${P.Dong.toLocaleString()}₫\``)
-            .setDescription(`\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``);
+            .setDescription(`${title}${shmoney}`);
 
         const btn = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
         await interac.update({ embeds: [embed], components: [btn] });
@@ -60,8 +63,7 @@ exports.Blackjack = async (interac, P) => {
         const btn2 = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
         const msg2 = new EmbedBuilder()
             .setColor('#2B2D31')
-            .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} ${P.Dong.toLocaleString()}₫`)
-            .setDescription(`\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``);
+            .setDescription(`${title}${shmoney}`);
 
         await btnInterac.update({ embeds: [msg2], components: [btn2] });
     });
@@ -78,13 +80,16 @@ exports.Modal = async (interac, P) => {
         return;
     }
 
-    P.Bet = bet; // Update bet globally
+    P.Bet = bet;
     await P.save();
+
+    const dong = `\u001b[33m${P.Dong.toLocaleString()}₫\u001b[0m`;
+    const title = `\`\`\`ansi\n👋 ${interac.member ? interac.member.displayName : interac.user.username} ${dong}\n\`\`\``;
+    const shmoney = `\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``;
 
     const embed = new EmbedBuilder()
         .setColor('#2B2D31')
-        .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} \`${P.Dong.toLocaleString()}₫\``)
-        .setDescription(`\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``);
+        .setDescription(`${title}${shmoney}`);
 
     const btn = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
 
