@@ -45,7 +45,7 @@ exports.Blackjack = async (interac, P) => {
             const input = new TextInputBuilder()
                 .setCustomId('BET')
                 .setLabel('Bet?')
-                .setPlaceholder(`${P.Bet}₫`)
+                .setPlaceholder(`-${P.Bet.toLocaleString()}₫`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true);
 
@@ -61,7 +61,7 @@ exports.Blackjack = async (interac, P) => {
         const msg2 = new EmbedBuilder()
             .setColor('#2B2D31')
             .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} ${P.Dong.toLocaleString()}₫`)
-            .setDescription(`\`${P.Bet}₫\``);
+            .setDescription(`\`-${P.Bet.toLocaleString()}₫\``);
 
         await btnInterac.update({ embeds: [msg2], components: [btn2] });
     });
