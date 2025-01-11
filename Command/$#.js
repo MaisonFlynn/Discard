@@ -12,9 +12,9 @@ async function GETLeaderboard(guild) {
     .slice(0, 3)
     .map((u, i) => {
       const m = M.get(u.ID);
-      const n = m ? M.displayName : u.username;
+      const n = m ? m.displayName : m.username;
 
-      return `\`\`\`ansi\n${['🥇', '🥈', '🥉'][i]} \u001b[33m${u.Dong.toLocaleString()}₫\u001b[0m ${n}\n\`\`\``;
+      return `\`\`\`ansi\n${['🥇', '🥈', '🥉'][i]} \u001b[33m${u.Dong.toLocaleString()}₫\u001b[0m ${n}\`\`\``;
     });
 
   return {
