@@ -29,7 +29,7 @@ module.exports = async function Claim(I, P) {
 
     const msg = new EmbedBuilder()
         .setColor('#2B2D31')
-        .setDescription(`${dong}\n${shmoney}`);
+        .setDescription(`${title}${dong}\n${shmoney}`);
 
     const btn = Btn1(P.Msg);
 
