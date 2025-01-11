@@ -43,7 +43,7 @@ exports.Blackjack = async (interac, P) => {
         } else if (btnInterac.customId === 'CUSTOM') {
             const modal = new ModalBuilder()
                 .setCustomId('MODAL')
-                .setTitle(`👋 ${btnInterac.member ? btnInterac.member.displayName : btnInterac.user.username} ${P.Dong.toLocaleString()}₫`);
+                .setTitle('✏️');
 
             const input = new TextInputBuilder()
                 .setCustomId('BET')
