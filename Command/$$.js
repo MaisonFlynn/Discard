@@ -84,7 +84,7 @@ exports.Modal = async (interac, P) => {
     const embed = new EmbedBuilder()
         .setColor('#2B2D31')
         .setTitle(`👋 ${interac.member ? interac.member.displayName : interac.user.username} \`${P.Dong.toLocaleString()}₫\``)
-        .setDescription(`\`${P.Bet}₫\``);
+        .setDescription(`\`-${P.Bet.toLocaleString()}₫\``);
 
     const btn = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
 
