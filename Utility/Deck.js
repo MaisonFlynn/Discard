@@ -20,9 +20,9 @@ const X = {
 
 // Fisher-Yates Shuffle
 function shuffle(deck) {
-    const idk = Date.now(); // Seed
+    const seed = Date.now();
     for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor((Math.random() * idk) % (i + 1));
+        const j = Math.floor((Math.random() * seed) % (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
     }
     return deck;
@@ -33,7 +33,7 @@ function deal() {
         Deck();
     }
 
-    return [deck.pop(), deck.pop()]; // "𝘐 𝘤𝘰𝘶𝘯𝘵 𝘵𝘸𝘰 𝘤𝘢𝘳𝘥𝘴, ..."
+    return [deck.pop(), deck.pop()];
 }
 
 module.exports = { Deck, shuffle, deal, X };
