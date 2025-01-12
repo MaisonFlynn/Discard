@@ -59,7 +59,10 @@ exports.Blackjack = async (interac, P) => {
             return;
         }
 
-        await P.save(); // Save updated bet value
+        await P.save();
+
+        const shmoney = `\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``;
+        
         const btn2 = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
         const msg2 = new EmbedBuilder()
             .setColor('#2B2D31')
