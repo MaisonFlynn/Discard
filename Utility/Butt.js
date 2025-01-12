@@ -32,11 +32,11 @@ function Btn2(cur, max, VND) {
             .setDisabled(cur <= 10),
         new ButtonBuilder()
             .setCustomId('CUSTOM')
-            .setEmoji('✏️')
+            .setEmoji('❔')
             .setStyle(ButtonStyle.Secondary),
         new ButtonBuilder()
             .setCustomId('CONFIRM')
-            .setEmoji('✅')
+            .setEmoji('✔️')
             .setStyle(ButtonStyle.Success)
             .setDisabled(VND < 10)
     );
@@ -80,7 +80,7 @@ function Btn4() {
     return new ActionRowBuilder().addComponents(
         new ButtonBuilder()
             .setCustomId('REPLAY')
-            .setEmoji('🔁')
+            .setEmoji('♾️')
             .setStyle(ButtonStyle.Primary)
     );
 }
