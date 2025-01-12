@@ -43,11 +43,11 @@ exports.Blackjack = async (interac, P) => {
         } else if (btnInterac.customId === 'CUSTOM') {
             const modal = new ModalBuilder()
                 .setCustomId('MODAL')
-                .setTitle('✏️');
+                .setTitle('❔');
 
             const input = new TextInputBuilder()
                 .setCustomId('BET')
-                .setLabel('Bet?')
+                .setLabel('𝐁𝐄𝐓?')
                 .setPlaceholder(`-${P.Bet.toLocaleString()}₫`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true);

@@ -80,7 +80,7 @@ function Btn4() {
     return new ActionRowBuilder().addComponents(
         new ButtonBuilder()
             .setCustomId('REPLAY')
-            .setEmoji('♾️')
+            .setEmoji('🔄')
             .setStyle(ButtonStyle.Primary)
     );
 }
