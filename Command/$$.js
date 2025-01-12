@@ -62,7 +62,7 @@ exports.Blackjack = async (interac, P) => {
         await P.save();
 
         const shmoney = `\`\`\`ansi\n\u001b[31m-${P.Bet.toLocaleString()}₫\u001b[0m\n\`\`\``;
-        
+
         const btn2 = Btn2(P.Bet, Math.min(P.Dong, 1000), P.Dong);
         const msg2 = new EmbedBuilder()
             .setColor('#2B2D31')
@@ -78,7 +78,7 @@ exports.Modal = async (interac, P) => {
 
     if (isNaN(bet) || bet < 10 || bet > 1000 || bet % 10 !== 0 || bet > P.Dong) {
         await interac.reply({
-            content: '```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 ₫! (𝟏𝟎-𝟏𝐊/𝟏𝟎)\u001b[0m\n```'
+            content: '```ansi\n\u001b[31m𝐈𝐍𝐕𝐀𝐋𝐈𝐃 ₫!\u001b[0m\n```'
         });
         return;
     }
