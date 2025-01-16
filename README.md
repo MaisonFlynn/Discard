@@ -1,3 +1,7 @@
+## Demonstration <small>[YouTube]</small>
+
+[![Discard](https://img.youtube.com/vi/LecIcbgqkNM/maxresdefault.jpg)](https://www.youtube.com/watch?v=LecIcbgqkNM)
+
 ## Installation
 
 + [Node.js](https://nodejs.org/en/download/prebuilt-installer)
