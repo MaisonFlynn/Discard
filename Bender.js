@@ -33,7 +33,7 @@ client.on('messageCreate', async (message) => {
             } catch (err) {
                 console.error(`DELETE: ${err.message}`);
             }
-        }, 60000); // 1 MIN
+        }, 300000); // 5 MIN
     }
 });
 
