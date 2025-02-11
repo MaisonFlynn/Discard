@@ -147,7 +147,10 @@ async function Interac(I, P) {
             }
 
             let msg = '';
-            if (dΣ > 21 || pΣ > dΣ) {
+            if (dΣ > 21) {
+                msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
+                P.Dong += B * 2;
+            } else if (pΣ > dΣ) {
                 msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
                 P.Dong += B * 2;
             } else if (dΣ > pΣ) {
@@ -224,7 +227,10 @@ async function Interac(I, P) {
 
         // 𝐑𝐄𝐒𝐔𝐋𝐓
         let msg = ``;
-        if (dΣ > 21 || pΣ > dΣ) {
+        if (dΣ > 21) {
+            msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
+            P.Dong += B * 2;
+        } else if (pΣ > dΣ) {
             msg = `\u001b[32m𝐖𝐈𝐍! +${B}₫\u001b[0m`;
             P.Dong += B * 2;
         } else if (dΣ > pΣ) {
