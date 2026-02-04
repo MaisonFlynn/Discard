@@ -6,7 +6,7 @@ const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const { Notification } = require('./Command/$±');
 const { Leaderboard } = require('./Command/$#');
 const Claim = require('./Command/$!');
-const Yap = require('./Event/Yappin\'');
+const Yap = require('./Event/VoiceChat');
 const { Blackjack, Modal } = require('./Command/$$');
 const { Interac } = require('./Command/$N');
 
